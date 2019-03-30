@@ -12,19 +12,21 @@ export class AgeOfDeathService {
       return this.ageOfDeath;
     }
     const age = AGES[country];
+    let ageOfDeath;
     if (age) {
       if (sex) {
         if (sex === 'male') {
-          this.ageOfDeath = parseFloat(age.male);
+          ageOfDeath = parseFloat(age.male);
         } else {
-          this.ageOfDeath = parseFloat(age.female);
+          ageOfDeath = parseFloat(age.female);
         }
       } else {
-        this.ageOfDeath = parseFloat(age.avg);
+        ageOfDeath = parseFloat(age.avg);
       }
     } else {
-      this.ageOfDeath = avgAgeOfDeath;
+      ageOfDeath = avgAgeOfDeath;
     }
+    this.ageOfDeath = Math.floor(ageOfDeath);
     return this.ageOfDeath;
   }
 }

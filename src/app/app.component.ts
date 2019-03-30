@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { ViewType } from './types/view.type';
 import { SpeechService } from './services/speech/speech.service';
 import { CountryService } from './services/country/country.service';
-import { AgeOfDeathService } from './services/prediction/age-of-death.service';
+import { AgeOfDeathService } from './services/age-of-death/age-of-death.service';
+import { AgeAndGender, AgeAndGenderService } from './services/age-and-sex/age-and-sex.service';
+
+const imageUrl = 'https://www.biography.com/.image/t_share/MTUxNTgzODk3Mjk2MDUzNTE2/gettyimages-870916736.jpg';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +19,15 @@ export class AppComponent {
   ageOfDeath: number = null;
   yearOfDeath = this.yearOfBirth + this.yearsToLife;
   age = this.today.getFullYear() - this.yearOfBirth;
+  gender: string = null;
   percentageLivedSoFar = ((this.age / this.yearsToLife) * 100).toFixed(2);
   view: ViewType = 'vertical';
   country: string = null;
-  sex: string = null;
 
   constructor(private speech: SpeechService,
               private countryService: CountryService,
-              private ageOfDeathService: AgeOfDeathService) {
+              private ageOfDeathService: AgeOfDeathService,
+              private ageAndGenderService: AgeAndGenderService) {
   }
 
   setView(view: ViewType): void {
@@ -31,10 +35,21 @@ export class AppComponent {
   }
 
   async welcomeUser() {
+    try {
+      const { age, gender }: AgeAndGender = await this.ageAndGenderService.get(imageUrl);
+      this.age = age;
+      this.gender = gender;
+    } catch (e) {
+      console.error(e);
+    }
     this.country = await this.countryService.get();
-    this.ageOfDeath = await this.ageOfDeathService.get(this.country, this.sex);
-    const msgAgeOfDeath = `Your will die at the age of ' + ${this.ageOfDeathService}.`;
-    const msgCountry = this.country ? 'Because you are living into ' + this.country : 'Please choose your country';
-    await this.speech.speak(`${msgAgeOfDeath}${msgCountry}`);
+    this.ageOfDeath = await this.ageOfDeathService.get(this.country, this.gender);
+    const msgAge = this.age && this.gender
+                   ? `Your are ${this.ageAndGenderService.genderStr()} and you are ${this.age} years old.`
+                   : 'Please specify your age and gender.';
+    const msgCountry = this.country ? `You are living into ${this.country}.` : 'Please choose your country.';
+    const msgAgeOfDeath = `Your will die at the age of ${this.ageOfDeath}.`;
+    await this.speech.speak(`${msgAge} ${msgCountry} So ${msgAgeOfDeath} `);
   }
 }
+

@@ -16,6 +16,7 @@ export class SpeechService {
       throw new Error('Speaking now');
     }
     return new Promise((resolve, reject) => {
+      // console.log(`text: ${JSON.stringify(text)}`);
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.onend = () => resolve();
       utterance.onerror = error => reject(error);

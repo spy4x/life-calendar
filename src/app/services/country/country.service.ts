@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class CountryService {
   country: string = null;
 
   constructor(private http: HttpClient) { }
-
-  username = 'dmitriy.kolesov';
 
   async get(): Promise<string> {
     return new Promise(async (resolve, reject) => {
@@ -29,7 +28,7 @@ export class CountryService {
                   lat: `${position.coords.latitude}`,
                   lng: `${position.coords.longitude}`,
                   type: 'JSON',
-                  username: this.username,
+                  username: environment.geonamesUsername,
                 },
               })
                 .toPromise();
