@@ -9,21 +9,24 @@ import { CountryService } from './services/country/country.service';
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent {
+  today = new Date();
   yearOfBirth = 1990;
-  years = 75;
+  yearsToLife = 75;
+  yearOfDeath = this.yearOfBirth + this.yearsToLife;
+  age = this.today.getFullYear() - this.yearOfBirth;
+  persentageLivedSoFar = ((this.age / this.yearsToLife) * 100).toFixed(2);
   view: ViewType = 'vertical';
+  country: string = null;
 
-  constructor(private speech: SpeechService, private country: CountryService) {
-    this.welcomeUser();
+  constructor(private speech: SpeechService, private countryService: CountryService) {
   }
 
   setView(view: ViewType): void {
     this.view = view;
-    this.speech.speak('Switch to ' + view);
   }
 
   async welcomeUser() {
-    const country = await this.country.get();
-    await this.speech.speak(country ? 'Welcome to ' + country : 'Please choose your country');
+    this.country = await this.countryService.get();
+    await this.speech.speak(this.country ? 'Welcome to ' + this.country : 'Please choose your country');
   }
 }

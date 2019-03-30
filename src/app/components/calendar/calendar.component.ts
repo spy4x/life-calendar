@@ -22,25 +22,26 @@ interface Year {
   encapsulation: ViewEncapsulation.None
 })
 export class CalendarComponent implements OnChanges {
-
   @Input() yearOfBirth: number;
   @Input() yearsToLife: number;
+  @Input() yearOfDeath: number;
+  @Input() age: number;
+  @Input() persentageLivedSoFar: number;
   @Input() view: ViewType;
+  @Input() today: Date;
   years: Year[];
-  today = new Date();
+  yearOfDeath: number;
+  lifePastPercentage = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ((changes['yearOfBirth'] || changes['yearOfBirth'])
-      && this.yearOfBirth
-      && this.yearsToLife) {
-      this.years = this.generateYears(this.yearOfBirth, this.yearsToLife, this.today);
+    if ((changes['yearOfBirth'] || changes['yearOfBirth']) && this.yearOfBirth && this.yearsToLife) {
+      this.years = this.generateYears();
     }
   }
 
-  private generateYears(yearOfBirth: number, yearsToLife: number, today: Date): Year[] {
-    const yearOfDeath = yearOfBirth + yearsToLife;
+  private generateYears(): Year[] {
     const years: Year[] = [];
-    for (let year = yearOfBirth; year <= yearOfDeath; year++) {
+    for (let year = this.yearOfBirth; year <= this.yearOfDeath; year++) {
       const yearItem: Year = {
         title: year + '',
         months: []
@@ -48,7 +49,7 @@ export class CalendarComponent implements OnChanges {
       for (let month = 1; month <= 12; month++) {
         yearItem.months.push({
           title: month + '',
-          passed: today > new Date(`${year}-${month}-31`)
+          passed: this.today > new Date(`${year}-${month}-31`)
         });
       }
       years.push(yearItem);
