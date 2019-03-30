@@ -15,12 +15,12 @@ const imageUrl = 'http://thecomedyspot.net/wp-content/uploads/2015/02/people-smi
 })
 export class AppComponent {
   today = new Date();
-  age: number = null;
+  yearOfBirth = 1990;
+  yearsToLife = 75;
+  yearOfDeath = this.yearOfBirth + this.yearsToLife;
+  age = this.today.getFullYear() - this.yearOfBirth;
   gender: string = null;
   country: string = null;
-  yearOfBirth: number = null;
-  yearsToLife: number = null;
-  yearOfDeath: number = null;
   percentageLivedSoFar = ((this.age / this.yearsToLife) * 100).toFixed(2);
   view: ViewType = 'vertical';
 
