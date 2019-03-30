@@ -1,7 +1,15 @@
+button('(click)'="welcomeUser()") Welcome
+
 lc-view-switcher('[view]'="view", '(changed)'="setView($event)")
 
 p YearOfBirth: {{yearOfBirth}}
-p Years: {{years}}
+p Years: {{yearsToLife}}
 p Country: {{country}}
 
-lc-calendar('[yearOfBirth]'="yearOfBirth", '[yearsToLife]'="years", '[view]'="view")
+lc-calendar('[yearOfBirth]'="yearOfBirth",
+            '[yearsToLife]'="yearsToLife",
+            '[yearOfDeath]'="yearOfDeath",
+            '[age]'="age",
+            '[persentageLivedSoFar]'="persentageLivedSoFar",
+            '[today]'="today",
+            '[view]'="view")
