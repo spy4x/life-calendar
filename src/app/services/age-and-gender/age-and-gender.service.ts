@@ -13,13 +13,14 @@ export class AgeAndGenderService {
   age: number = null;
   gender: Gender = null;
 
-  get(imageUrl: string): Promise<AgeAndGender> {
+  get(base64: string): Promise<AgeAndGender> {
     return new Promise((resolve, reject) => {
       if (this.age && this.gender) {
         resolve({ age: this.age, gender: this.gender });
       }
       try {
-        const image = { image: imageUrl };
+        const data = { image: base64.split(',')[1] };
+
         const xmlHttp = new XMLHttpRequest();
         let result;
 
@@ -46,7 +47,7 @@ export class AgeAndGenderService {
         xmlHttp.open('POST', 'https://dev.sighthoundapi.com/v1/detections?type=face,person&faceOption=age,gender');
         xmlHttp.setRequestHeader('Content-type', 'application/json');
         xmlHttp.setRequestHeader('X-Access-Token', environment.sighthoundCloudToken);
-        xmlHttp.send(JSON.stringify(image));
+        xmlHttp.send(JSON.stringify(data));
       } catch (e) {
         reject(e);
       }

@@ -11,7 +11,7 @@ import { UserDataService } from './services/user-data/user-data.service';
 import { WelcomeComponent } from './components/welcome/welcome/welcome.component';
 import { WelcomeCountryPickerComponent } from './components/welcome/country-picker/country-picker.component';
 import { AgeOfDeathService } from './services/age-of-death/age-of-death.service';
-import { AgeAndGenderService } from './services/age-and-sex/age-and-sex.service';
+import { AgeAndGenderService } from './services/age-and-gender/age-and-gender.service';
 import { WelcomeAgePickerComponent } from './components/welcome/age-picker/age-picker.component';
 import { CameraAccessComponent } from './components/camera-access/camera-access.component';
 

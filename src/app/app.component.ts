@@ -4,10 +4,10 @@ import { UserDataService } from './services/user-data/user-data.service';
 import { SpeechService } from './services/speech/speech.service';
 import { CountryService } from './services/country/country.service';
 import { AgeOfDeathService } from './services/age-of-death/age-of-death.service';
-import { AgeAndGender, AgeAndGenderService } from './services/age-and-sex/age-and-sex.service';
+import { AgeAndGender, AgeAndGenderService } from './services/age-and-gender/age-and-gender.service';
 
 // const imageUrl = 'https://www.biography.com/.image/t_share/MTUxNTgzODk3Mjk2MDUzNTE2/gettyimages-870916736.jpg';
-const imageUrl = 'http://thecomedyspot.net/wp-content/uploads/2015/02/people-smiling2.jpg';
+// const imageUrl = 'http://thecomedyspot.net/wp-content/uploads/2015/02/people-smiling2.jpg';
 
 @Component({
   selector: 'lc-root',
@@ -37,11 +37,11 @@ export class AppComponent {
     this.view = view;
   }
 
-  async markUserAsNotNew(): Promise<void> {
+  async markUserAsNotNew(photo): Promise<void> {
     this.userData.patch({ isNew: false });
     // TODO: May be show some hints of how to use UI
     try {
-      const { age, gender }: AgeAndGender = await this.ageAndGenderService.get(imageUrl);
+      const { age, gender }: AgeAndGender = await this.ageAndGenderService.get(photo);
       this.age = age;
       this.gender = gender;
     } catch (e) {

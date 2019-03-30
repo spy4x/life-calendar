@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AgeAndSexService } from './age-and-sex.service';
+import { AgeAndGenderService } from './age-and-gender.service';
 
-describe('AgeAndSexService', () => {
+describe('AgeAndGenderService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AgeAndSexService = TestBed.get(AgeAndSexService);
+    const service: AgeAndGenderService = TestBed.get(AgeAndGenderService);
     expect(service).toBeTruthy();
   });
 });

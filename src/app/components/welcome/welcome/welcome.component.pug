@@ -10,4 +10,4 @@ section.hero.is-dark.is-fullheight
         lc-welcome-country-picker('*ngIf'="!(user$ | async).country; else agePicker")
 
         ng-template(#agePicker)
-          lc-welcome-age-picker('(done)'="done.emit()")
+          lc-welcome-age-picker('(done)'="done.emit($event)")
