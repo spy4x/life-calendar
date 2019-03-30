@@ -13,6 +13,7 @@ import { WelcomeCountryPickerComponent } from './components/welcome/country-pick
 import { AgeOfDeathService } from './services/age-of-death/age-of-death.service';
 import { AgeAndGenderService } from './services/age-and-sex/age-and-sex.service';
 import { WelcomeAgePickerComponent } from './components/welcome/age-picker/age-picker.component';
+import { CameraAccessComponent } from './components/camera-access/camera-access.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { WelcomeAgePickerComponent } from './components/welcome/age-picker/age-p
     WelcomeComponent,
     WelcomeCountryPickerComponent,
     WelcomeAgePickerComponent,
+    CameraAccessComponent
   ],
   imports: [
     BrowserModule,
