@@ -1,6 +1,3 @@
-p YearOfBirth: {{yearOfBirth}}
-p YearsToLife: {{yearsToLife}}
-
 .view.view--horizontal('*ngIf'="view === 'horizontal'")
   .year('*ngFor'="let year of years; let isFirst = first; let isLast = last")
     .title {{((+year.title)%10===0 || isFirst || isLast) ? year.title : '&nbsp;'}}
