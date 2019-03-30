@@ -5,7 +5,8 @@ const synth = window.speechSynthesis;
 @Injectable()
 export class SpeechService {
 
-  constructor() { }
+  constructor() {
+  }
 
   async speak(text: string): Promise<void> {
     if (!text) {

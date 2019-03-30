@@ -6,7 +6,7 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import {ViewType} from '../+shared/types/view.type';
+import {ViewType} from '../../types/view.type';
 
 
 interface Year {

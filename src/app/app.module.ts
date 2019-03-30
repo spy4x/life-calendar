@@ -2,10 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { ViewSwitcherComponent } from './view-switcher/view-switcher.component';
-import { SpeechService } from './speech/speech.service';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.component';
+import { SpeechService } from './services/speech/speech.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CountryService } from './services/country/country.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     HttpClientModule
   ],
-  providers: [SpeechService],
+  providers: [SpeechService, CountryService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
