@@ -7,6 +7,7 @@ import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.
 import { SpeechService } from './services/speech/speech.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CountryService } from './services/country/country.service';
+import { AgeOfDeathService } from './services/prediction/age-of-death.service';
 
 @NgModule({
   declarations: [
@@ -16,9 +17,9 @@ import { CountryService } from './services/country/country.service';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [SpeechService, CountryService],
+  providers: [SpeechService, CountryService, AgeOfDeathService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

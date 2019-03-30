@@ -5,11 +5,13 @@ lc-view-switcher('[view]'="view", '(changed)'="setView($event)")
 p YearOfBirth: {{yearOfBirth}}
 p Years: {{yearsToLife}}
 p Country: {{country}}
+p Prediction: {{ageOfDeath}}
+p YearOfDeath: {{yearOfDeath}}
 
 lc-calendar('[yearOfBirth]'="yearOfBirth",
             '[yearsToLife]'="yearsToLife",
             '[yearOfDeath]'="yearOfDeath",
             '[age]'="age",
-            '[persentageLivedSoFar]'="persentageLivedSoFar",
+            '[persentageLivedSoFar]'="percentageLivedSoFar",
             '[today]'="today",
             '[view]'="view")
