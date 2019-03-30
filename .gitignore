@@ -1,18 +1,17 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# configs
+.firebaserc
+gaeAccountKey.json
+
 # compiled output
-/dist
+dist
 /tmp
 /out-tsc
-# Only exists if Bazel was run
-/bazel-out
+/.firebase
 
 # dependencies
-/node_modules
-
-# profiling files
-chrome-profiler-events.json
-speed-measure-plugin.json
+node_modules
 
 # IDEs and editors
 /.idea
@@ -24,12 +23,12 @@ speed-measure-plugin.json
 *.sublime-workspace
 
 # IDE - VSCode
+.vscode/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
 
 # misc
 /.sass-cache
@@ -37,9 +36,14 @@ speed-measure-plugin.json
 /coverage
 /libpeerconnection.log
 npm-debug.log
-yarn-error.log
 testem.log
 /typings
+firebase-debug.log
+yarn-error.log
+
+# e2e
+/e2e/*.js
+/e2e/*.map
 
 # System Files
 .DS_Store

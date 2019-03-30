@@ -2,12 +2,9 @@
   "name": "life-calendar",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
+    "build": "ng build --prod",
+    "deploy": "firebase deploy",
     "postinstall": "node ./ng-add-pug-loader.js"
   },
   "private": true,
@@ -36,6 +33,7 @@
     "@types/node": "~8.9.4",
     "apply-loader": "^2.0.0",
     "codelyzer": "~4.5.0",
+    "firebase-tools": "^6.5.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.0.0",
