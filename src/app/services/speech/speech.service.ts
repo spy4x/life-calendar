@@ -13,17 +13,19 @@ export class SpeechService {
       return;
     }
     if (synth.speaking) {
-      throw new Error('Speaking now');
+      synth.cancel();
     }
     return new Promise((resolve, reject) => {
-      // console.log(`text: ${JSON.stringify(text)}`);
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.onend = () => resolve();
-      utterance.onerror = error => reject(error);
-      utterance.pitch = 1;
-      utterance.rate = 1;
-      synth.speak(utterance);
-      resolve();
+      try {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.onend = () => resolve();
+        utterance.onerror = error => reject(error);
+        utterance.pitch = 1;
+        utterance.rate = 1;
+        synth.speak(utterance);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 }

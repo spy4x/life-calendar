@@ -1,17 +1,21 @@
-button('(click)'="welcomeUser()") Welcome
+ng-container('*ngIf'="user$ | async as user")
+  lc-welcome('*ngIf'="user.isNew; else mainApp", '(done)'="markUserAsNotNew()")
 
-lc-view-switcher('[view]'="view", '(changed)'="setView($event)")
+  ng-template(#mainApp)
 
-p Country: {{country}}
-p YearOfBirth: {{yearOfBirth}}
-p Years: {{age}}
-p YearOfDeath: {{yearOfDeath}}
-p AgeOfDeath: {{yearsToLife}}
+    lc-view-switcher('[view]'="view", '(changed)'="setView($event)")
 
-lc-calendar('[yearOfBirth]'="yearOfBirth",
-            '[yearsToLife]'="yearsToLife",
-            '[yearOfDeath]'="yearOfDeath",
-            '[age]'="age",
-            '[percentageLivedSoFar]'="percentageLivedSoFar",
-            '[today]'="today",
-            '[view]'="view")
+    p YearOfBirth: {{yearOfBirth}}
+    p Years: {{yearsToLife}}
+    p Country: {{user.country}}
+    p Prediction: {{ageOfDeath}}
+    p YearOfDeath: {{yearOfDeath}}
+
+    lc-calendar('[yearOfBirth]'="yearOfBirth",
+                '[yearsToLife]'="yearsToLife",
+                '[yearOfDeath]'="yearOfDeath",
+                '[age]'="age",
+                '[percentageLivedSoFar]'="percentageLivedSoFar",
+                '[today]'="today",
+                '[view]'="view")
+

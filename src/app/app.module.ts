@@ -7,20 +7,27 @@ import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.
 import { SpeechService } from './services/speech/speech.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CountryService } from './services/country/country.service';
+import { UserDataService } from './services/user-data/user-data.service';
+import { WelcomeComponent } from './components/welcome/welcome/welcome.component';
+import { WelcomeCountryPickerComponent } from './components/welcome/country-picker/country-picker.component';
 import { AgeOfDeathService } from './services/age-of-death/age-of-death.service';
 import { AgeAndGenderService } from './services/age-and-sex/age-and-sex.service';
+import { WelcomeAgePickerComponent } from './components/welcome/age-picker/age-picker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
     ViewSwitcherComponent,
+    WelcomeComponent,
+    WelcomeCountryPickerComponent,
+    WelcomeAgePickerComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
   ],
-  providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService],
+  providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

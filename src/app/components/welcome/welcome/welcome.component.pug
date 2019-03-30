@@ -1,0 +1,13 @@
+section.hero.is-dark.is-fullheight
+  .hero-body
+    .container.has-text-centered
+      div('*ngIf'="!isFirstStepPassed; else countryPicker")
+        h1.title
+          | Wanna be motivated by DEATH ☠️?
+        h2.title
+          button.button.is-large.is-success('(click)'="closeWelcome()") Sure, let's start!
+      ng-template(#countryPicker)
+        lc-welcome-country-picker('*ngIf'="!(user$ | async).country; else agePicker")
+
+        ng-template(#agePicker)
+          lc-welcome-age-picker('(done)'="done.emit()")

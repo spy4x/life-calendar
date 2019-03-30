@@ -15,7 +15,6 @@ interface Year {
 }
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'lc-calendar',
   templateUrl: './calendar.component.pug',
   styleUrls: ['./calendar.component.sass'],
@@ -31,8 +30,6 @@ export class CalendarComponent implements OnChanges {
   @Input() view: ViewType;
   @Input() today: Date;
   years: Year[];
-  // yearOfDeath: number;
-  // lifePastPercentage = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
     // tslint:disable-next-line:no-string-literal

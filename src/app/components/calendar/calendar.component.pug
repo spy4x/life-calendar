@@ -18,4 +18,4 @@ table.view.view--vertical('*ngIf'="view === 'vertical'")
 
 .view.view--progressbar('*ngIf'="view === 'progressbar'")
   p {{percentageLivedSoFar}}
-  progress(max="100", '[value]'="percentageLivedSoFar") {{percentageLivedSoFar}}%
+  progress.progress(max="100", '[value]'="percentageLivedSoFar") {{percentageLivedSoFar}}%

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewType } from './types/view.type';
+import { UserDataService } from './services/user-data/user-data.service';
 import { SpeechService } from './services/speech/speech.service';
 import { CountryService } from './services/country/country.service';
 import { AgeOfDeathService } from './services/age-of-death/age-of-death.service';
@@ -9,7 +10,7 @@ import { AgeAndGender, AgeAndGenderService } from './services/age-and-sex/age-an
 const imageUrl = 'http://thecomedyspot.net/wp-content/uploads/2015/02/people-smiling2.jpg';
 
 @Component({
-  selector: 'app-root',
+  selector: 'lc-root',
   templateUrl: './app.component.pug',
   styleUrls: ['./app.component.sass'],
 })
@@ -23,18 +24,22 @@ export class AppComponent {
   country: string = null;
   percentageLivedSoFar = ((this.age / this.yearsToLife) * 100).toFixed(2);
   view: ViewType = 'vertical';
+  user$ = this.userData.user$;
 
   constructor(private speech: SpeechService,
               private countryService: CountryService,
               private ageOfDeathService: AgeOfDeathService,
-              private ageAndGenderService: AgeAndGenderService) {
+              private ageAndGenderService: AgeAndGenderService,
+              private userData: UserDataService) {
   }
 
   setView(view: ViewType): void {
     this.view = view;
   }
 
-  async welcomeUser() {
+  async markUserAsNotNew(): Promise<void> {
+    this.userData.patch({ isNew: false });
+    // TODO: May be show some hints of how to use UI
     try {
       const { age, gender }: AgeAndGender = await this.ageAndGenderService.get(imageUrl);
       this.age = age;
@@ -42,16 +47,14 @@ export class AppComponent {
     } catch (e) {
       console.error(e);
     }
-    this.country = await this.countryService.get();
-    this.yearsToLife = await this.ageOfDeathService.get(this.country, this.gender);
+    this.yearsToLife = await this.ageOfDeathService.get(this.user$.value.country, this.gender);
     this.yearOfBirth = this.today.getFullYear() - this.age;
     this.yearOfDeath = this.yearOfBirth + this.yearsToLife;
     const msgAge = this.age && this.gender
                    ? `Your are ${this.ageAndGenderService.genderStr()} and you are ${this.age} years old.`
                    : 'Please specify your age and gender.';
-    const msgCountry = this.country ? `You are living in ${this.country}.` : 'Please choose your country.';
+    const msgCountry = this.user$.value.country ? `You are living in ${this.user$.value.country}.` : 'Please choose your country.';
     const msgAgeOfDeath = `Your will die at the in ${this.yearOfDeath} age of ${this.yearsToLife}.`;
     await this.speech.speak(`${msgAge} ${msgCountry} So ${msgAgeOfDeath} `);
   }
 }
-
