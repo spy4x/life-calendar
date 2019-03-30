@@ -1,0 +1,31 @@
+p YearOfBirth: {{yearOfBirth}}
+p YearsToLife: {{yearsToLife}}
+
+.view.view--horizontal('*ngIf'="view === 'horizontal'")
+  .year('*ngFor'="let year of years; let isFirst = first; let isLast = last")
+    .title {{((+year.title)%10===0 || isFirst || isLast) ? year.title : '&nbsp;'}}
+    .month('*ngFor'="let month of year.months" '[class.passed]'="month.passed")
+
+
+table.view.view--vertical('*ngIf'="view === 'vertical'")
+  thead
+    tr
+      th Year
+      th Months
+  tbody
+    tr('*ngFor'="let year of years")
+      td {{year.title}}
+      td
+        .month('*ngFor'="let month of year.months" '[class.passed]'="month.passed")
+
+
+.view.view--progressbar('*ngIf'="view === 'progressbar'")
+  p TODO: progressbar
+  //<!--<div *ngFor="let year of years">-->
+  //  <!--<td>{{year.title}}</td>-->
+  //  <!--<td>-->
+  //    <!--<div class="month"-->
+  //         <!--*ngFor="let month of year.months"-->
+  //         <!--[class.passed]="month.passed"></div>-->
+  //  <!--</td>-->
+  //<!--</div>-->

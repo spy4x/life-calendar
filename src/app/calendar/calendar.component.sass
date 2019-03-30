@@ -1,0 +1,29 @@
+lc-calendar
+  .month
+    background: forestgreen
+    display: inline-block
+    &.passed
+      background: red
+
+  .view
+    &.view--horizontal
+      display: flex
+      flex-direction: row
+      .year
+        display: flex
+        flex-direction: column
+        margin-right: 2px
+
+      .month
+        width: 15px
+        height: 15px
+        margin-bottom: 5px
+
+    &.view--vertical
+      .month
+        width: 25px
+        height: 25px
+        margin-right: 5px
+
+
+

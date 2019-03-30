@@ -2,15 +2,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { ViewSwitcherComponent } from './view-switcher/view-switcher.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CalendarComponent,
+    ViewSwitcherComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
