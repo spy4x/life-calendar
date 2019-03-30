@@ -26,9 +26,11 @@ export class AgeAndGenderService {
         xmlHttp.onreadystatechange = () => {
           if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
             const response: any = JSON.parse(xmlHttp.responseText);
-            if (response && response.objects && response.objects.length &&
-              response.objects[1].attributes) {
-              result = response.objects[1].attributes;
+            if (response && response.objects && response.objects.length) {
+              const faces = response.objects.filter(obj => obj.type === 'face');
+              if (faces.length) {
+                result = faces[0].attributes;
+              }
             }
 
             if (result && result.age && result.gender) {
