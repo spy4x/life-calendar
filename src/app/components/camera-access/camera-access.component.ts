@@ -1,6 +1,6 @@
 import {
   AfterViewInit,
-  Component, ElementRef, Output, ViewChild,
+  Component, ElementRef, EventEmitter, Output, ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -17,12 +17,11 @@ export class CameraAccessComponent implements AfterViewInit {
   @ViewChild('canvas')
   public canvas: ElementRef;
   @Output()
-  public captures: Array<any>;
+  public photoDone: EventEmitter<any> = new EventEmitter();
+  public photo: any;
   public isPhotoReady = false;
   public videoStream;
-  constructor() {
-    this.captures = [];
-  }
+  constructor() { }
 
   public ngAfterViewInit() {
     this.initVideoStream();
@@ -30,16 +29,20 @@ export class CameraAccessComponent implements AfterViewInit {
 
   public capture() {
     this.canvas.nativeElement.getContext('2d').drawImage(this.video.nativeElement, 0, 0, 640, 480);
-    this.captures.push(this.canvas.nativeElement.toDataURL('image/png'));
+    this.photo = this.canvas.nativeElement.toDataURL('image/png');
     this.isPhotoReady = true;
     this.stopVideo();
   }
 
   public newPhoto() {
     this.isPhotoReady = false;
+    this.canvas.nativeElement.getContext('2d').clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
     this.initVideoStream();
   }
 
+  public ok() {
+    this.photoDone.emit(this.photo);
+  }
   private initVideoStream() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
