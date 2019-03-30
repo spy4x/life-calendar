@@ -18,14 +18,30 @@ export class CameraAccessComponent implements AfterViewInit {
   public canvas: ElementRef;
   @Output()
   public captures: Array<any>;
+  public isPhotoReady = false;
   constructor() {
     this.captures = [];
   }
 
   public ngAfterViewInit() {
+    this.initVideoStream();
+  }
+
+  public capture() {
+    this.canvas.nativeElement.getContext('2d').drawImage(this.video.nativeElement, 0, 0, 640, 480);
+    this.captures.push(this.canvas.nativeElement.toDataURL('image/png'));
+    // this.isPhotoReady = true;
+    this.stopVideo();
+  }
+
+  public newPhoto() {
+    this.isPhotoReady = false;
+    this.initVideoStream();
+  }
+
+  private initVideoStream() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-        console.log(stream.getVideoTracks()[0]);
         try {
           this.video.nativeElement.srcObject = stream;
         } catch (error) {
@@ -36,8 +52,11 @@ export class CameraAccessComponent implements AfterViewInit {
     }
   }
 
-  public capture() {
-    this.canvas.nativeElement.getContext('2d').drawImage(this.video.nativeElement, 0, 0, 640, 480);
-    this.captures.push(this.canvas.nativeElement.toDataURL('image/png'));
+  private  stopVideo() {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+        stream.getTracks().forEach(track => track.stop());
+      });
+    }
   }
 }
