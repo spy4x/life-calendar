@@ -29,122 +29,37 @@ button.button.is-success.system-button.system-button-top-left.slide-down-animati
     ng-container('*ngFor'="let item of getItems()")
       ng-container('*ngIf'="item.type==='archive'")
         .timeline-item('[ngClass]'="getClass(item)")
-          .timeline-marker()
+          .timeline-marker('[ngClass]'="getClass(item)")
           .timeline-content
             h2 {{item.age}}
             p.timeline--desc {{item.desc}}
 
       ng-container('*ngIf'="item.type==='terminator'")
         ng-container('*ngIf'="item.age!==0")
-          .timeline-item.is-primary
+          .timeline-item('[ngClass]'="getClass(item)")
             .timeline-content
-          .timeline-item.is-primary
+          .timeline-item('[ngClass]'="getClass(item)")
             .timeline-content
         header.timeline-header
-          span.tag.is-danger {{item.desc}}
+          span.tag('[ngClass]'="getClass(item)") {{item.desc}}
         ng-container('*ngIf'="item.age===0")
-          .timeline-item.is-primary
+          .timeline-item('[ngClass]'="getClass(item)")
             .timeline-content
-          .timeline-item.is-primary
+          .timeline-item('[ngClass]'="getClass(item)")
             .timeline-content
 
       ng-container('*ngIf'="item.type==='event'")
-        .timeline-item.is-primary
+        .timeline-item('[ngClass]'="getClass(item)")
           .timeline-content
-        .timeline-item.is-primary
+        .timeline-item('[ngClass]'="getClass(item)")
           .timeline-content
         header.timeline-header
-          span.tag.is-warning {{item.desc}}
+          span.tag('[ngClass]'="getClass(item)") {{item.desc}}
         ng-container('*ngIf'="age < lifeExpectancy || item.age !== age")
-          .timeline-item.is-primary
+          .timeline-item('[ngClass]'="getClass(item)")
             .timeline-content
-          .timeline-item.is-primary
+          .timeline-item('[ngClass]'="getClass(item)")
             .timeline-content
-
-//header.timeline-header.is-primary
-//  span.tag.is-medium.is-primary {{yearOfBirth}} - Born 👶
-//.timeline-item
-//.timeline-item.is-primary('*ngFor'="let dead of getYoungerAge()")
-//  .timeline-marker.is-primary
-//  .timeline-content
-//    h2 {{dead.age}}
-//    p.timeline--desc {{dead.desc}}
-//.timeline-item.is-primary
-//  .timeline-content
-//.timeline-item.is-primary
-//  .timeline-content
-//header.timeline-header
-//  span.tag.is-success {{today | date: 'yyyy'}} - {{age}} years old 😎
-//.timeline-item.is-success
-//  .timeline-content
-//.timeline-item.is-success('*ngFor'="let dead of getOlderAge()")
-//  .timeline-marker.is-success
-//  .timeline-content
-//    h2 {{dead.age}}
-//    p.timeline--desc {{dead.desc}}
-//.timeline-item.is-success
-//  .timeline-content
-//.timeline-item.is-success
-//  .timeline-content
-//header.timeline-header
-//  span.tag.is-warning {{yearOfBirth + notEffectiveAge}} - {{notEffectiveAge}} years old - Retirement 👴🏽
-//.timeline-item.is-warning
-//  .timeline-content
-//.timeline-item.is-warning('*ngFor'="let dead of getOlderNotEffective()")
-//  .timeline-marker.is-warning
-//  .timeline-content
-//    h2 {{dead.age}}
-//    p.timeline--desc {{dead.desc}}
-//.timeline-item.is-danger
-//  .timeline-content
-//.timeline-item.is-danger
-//  .timeline-content
-//header.timeline-header
-//  span.tag.is-danger {{yearOfDeath}} - {{lifeExpectancy}} years old - Life expectancy 💀
-//
-
-
-
-    //header.timeline-header.is-primary
-    //  span.tag.is-medium.is-primary Born: {{yearOfBirth}}
-    //.timeline-item
-    //.timeline-item('*ngFor'="let dead of getYoungerAge()")
-    //  .timeline-marker
-    //  .timeline-content
-    //    h2 {{dead.age}}
-    //    p.timeline--desc {{dead.desc}}
-    //.timeline-item
-    //  .timeline-content
-    //.timeline-item
-    //  .timeline-content
-    //header.timeline-header
-    //  span.tag.is-warning Now: ({{today | date: 'yyyy'}}) {{age}} years old
-    //.timeline-item.is-warning
-    //  .timeline-content
-    //.timeline-item.is-warning('*ngFor'="let dead of getOlderAge()")
-    //  .timeline-marker.is-warning
-    //  .timeline-content
-    //    h2 {{dead.age}}
-    //    p.timeline--desc {{dead.desc}}
-    //.timeline-item.is-warning
-    //  .timeline-content
-    //.timeline-item.is-warning
-    //  .timeline-content
-    //header.timeline-header
-    //  span.tag.is-danger Retirement: ({{yearOfBirth + activeLifeGap}}) {{activeLifeGap}} years old
-    //.timeline-item.is-danger
-    //  .timeline-content
-    //.timeline-item.is-danger('*ngFor'="let dead of getOlderNotEffective()")
-    //  .timeline-marker.is-danger
-    //  .timeline-content
-    //    h2 {{dead.age}}
-    //    p.timeline--desc {{dead.desc}}
-    //.timeline-item.is-danger
-    //  .timeline-content
-    //.timeline-item.is-danger
-    //  .timeline-content
-    //header.timeline-header
-    //  span.tag.is-medium.is-danger Death: ({{yearOfDeath}}) {{lifeExpectancy}} years old
 
 
 //.view.view--chart-radial-bar('*ngIf'="view === 'radialBar'")
