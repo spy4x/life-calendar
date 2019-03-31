@@ -36,7 +36,7 @@ export class WelcomeAgePickerComponent implements OnInit {
     await Promise.all([this.speech.speak(`Let me look at your face to understand your age and gender`), sleep(2000)]);
   }
 
-  async usePhoto(photoDataUrl: string): Promise<void> {
+  async usePhoto(photoDataUrl: string | null): Promise<void> {
     try {
       if (!photoDataUrl) {
         throw new Error('No photo was provided');

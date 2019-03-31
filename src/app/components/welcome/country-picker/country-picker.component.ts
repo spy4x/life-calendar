@@ -28,7 +28,10 @@ export class WelcomeCountryPickerComponent implements OnInit {
 
   async getCountry(): Promise<void> {
     try {
-      this.country = await this.countryService.get();
+      this.country = await Promise.race([this.countryService.get(), sleep(5000)]) || null;
+      if (!this.country) {
+        throw new Error(`Timeout happened`);
+      }
       this.setCountry(this.country);
     } catch (error) {
       console.error(`Couldn't recognize country.`, error);
