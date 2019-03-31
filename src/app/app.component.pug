@@ -22,13 +22,13 @@ ng-container('*ngIf'="user$ | async as user")
         .container.has-text-centered
           button.button.is-large.is-primary('*ngIf'="!isShowingLife", '(click)'="showUserHisLife()")
             | Show me my life
-          div('*ngIf'="isShowingLife")
+          .life-overview('*ngIf'="isShowingLife")
+            p.has-text-centered.slide-down-animation.m-b-1('*ngIf'="showLifeExpectancy")
+              | Life expectancy is {{user.lifeExpectancy}} years
             .progress-bar-stack
               .progress-bar('*ngFor'="let ls of lifeStages", '[ngClass]'="ls.cssClass", '[style.width]'="ls.width + '%'")
                 p {{ls.text}}
 
-            p.has-text-centered.slide-down-animation('*ngIf'="showLifeExpectancy")
-              | Life expectancy is {{user.lifeExpectancy}} years
 
           //button.button.is-small('(click)'="clearStorage()") RESET
 
