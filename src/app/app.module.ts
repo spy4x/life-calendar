@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ConnectionStatusService } from './services/connection-status/connection-status.service';
+import { VoteComponent } from './components/vote/vote.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ConnectionStatusService } from './services/connection-status/connection
     WelcomeCountryPickerComponent,
     WelcomeAgePickerComponent,
     CameraComponent,
+    VoteComponent
   ],
   imports: [
     BrowserModule,

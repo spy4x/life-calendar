@@ -38,6 +38,9 @@ ng-container('*ngIf'="user$ | async as user")
       '[age]'="user.age",
       '[percentageLivedSoFar]'="user.percentageLivedSoFar",
       '[today]'="today")
+
+      .container.has-text-centered
+        lc-vote-component
       //button.button.is-small('(click)'="clearStorage()") RESET
 
 
