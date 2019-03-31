@@ -28,7 +28,7 @@ ng-container('*ngIf'="user$ | async as user")
             .progress-bar-stack
               .progress-bar('*ngFor'="let ls of lifeStages", '[ngClass]'="ls.cssClass", '[style.width]'="ls.width + '%'")
                 p {{ls.text}}
-          button.button.btn-timeline.is-success.m-t-1('*ngIf'="lifeShowingFinished && !timelineActive",
+          button.button.btn-timeline.is-success.m-t-1.slide-up-animation('*ngIf'="lifeShowingFinished && !timelineActive",
                                                 '(click)'="showTimeline()")
             | Show timeline 🔥
 
@@ -40,7 +40,7 @@ ng-container('*ngIf'="user$ | async as user")
                   '[percentageLivedSoFar]'="user.percentageLivedSoFar",
                   '[today]'="today")
 
-      .system-panel.system-panel-bottom('*ngIf'="timelineActive")
+      .system-panel.system-panel-bottom.slide-up-animation('*ngIf'="timelineActive")
         .buttons
           button.button.is-warning.is-left('(click)'="clearStorage()", title="Restart") Restart survey 🧨
           a.button.is-success.is-right(href="https://www.angularattack.com/entries/77-asap/vote" target="_blank")

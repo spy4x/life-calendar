@@ -5,11 +5,11 @@ section.hero.is-dark.is-fullheight('*ngIf'="!isStreaming")
       h1.title('*ngIf'="!isSupported") Video stream is not supported =/
 
 div.bottom-panel('*ngIf'="!isPhotoReady && isStreaming")
-  button.button.is-primary.is-large('(click)'="takePicture()") Snap {{timerSecondsLeft ?'in '+timerSecondsLeft :''}}
+  button.button.is-primary.is-large.slide-up-animation('(click)'="takePicture()") Snap {{timerSecondsLeft ?'in '+timerSecondsLeft :''}}
 div.bottom-panel.has-text-centered('*ngIf'="isPhotoReady")
   .buttons.is-centered
-    button.button.is-warning('(click)'="newPhoto()") Retake
-    button.button.is-success('(click)'="ok()") Looks fine
+    button.button.is-warning.is-large.slide-up-animation('(click)'="newPhoto()") Retake
+    button.button.is-success.is-large.slide-up-animation('(click)'="ok()") Looks fine
 h1.title.m-t-1 {{isPhotoReady ? 'Does it look good? 🤪' : 'Smile reduces age! 🙃'}}
 video(#video width="640" height="480" autoplay playsinline '[class.is-hidden]'="isPhotoReady") Video stream not available.
 canvas.is-hidden(#canvas width="640" height="480")

@@ -75,3 +75,15 @@ $progress-bar-stack-height-mobile: 100px
   100%
     opacity: 1
     transform: translateY(0)
+
+.slide-up-animation
+  animation: slide-up 1.5s ease
+
+@keyframes slide-up
+  0%
+    opacity: 0
+    transform: translateY($progress-bar-stack-height)
+
+  100%
+    opacity: 1
+    transform: translateY(0)

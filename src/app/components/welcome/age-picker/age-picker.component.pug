@@ -2,7 +2,7 @@ div('*ngIf'="!photoDataUrl && !isRecognized")
   h1.title
   lc-welcome-camera('(done)'="usePhoto($event)")
 h1.title('*ngIf'="isRecognizing") 👴🏻 Recognizing your age and gender 👶
-div('*ngIf'="isRecognized")
+div.slide-up-animation('*ngIf'="isRecognized")
   p.title Am I right?
   .columns.is-multiline
     .column
