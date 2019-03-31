@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 const localStorageKey = 'user';
 const defaultUser: User = {
   isNew: true,
+  shouldPlayVoice: false, // TODO: make true before release
   country: null,
   yearOfBirth: 0,
   yearsToLife: 0,

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserDataService } from '../user-data/user-data.service';
 
 const synth = window.speechSynthesis;
 const responsiveVoice = (window as any).responsiveVoice;
@@ -7,6 +8,8 @@ const responsiveVoice = (window as any).responsiveVoice;
 export class SpeechService {
   private voices: SpeechSynthesisVoice[];
   private voice: SpeechSynthesisVoice;
+
+  constructor(private userData: UserDataService) {}
 
   getVoice() {
     if (!this.voice) {
@@ -18,7 +21,7 @@ export class SpeechService {
   }
 
   async speak(text: string): Promise<void> {
-    if (!text) {
+    if (!text || !this.userData.user$.value.shouldPlayVoice) {
       return;
     }
     if (synth.speaking) {
