@@ -16,26 +16,33 @@ table.view.view--vertical('*ngIf'="view === 'vertical'")
         .month('*ngFor'="let month of year.months", '[class.passed]'="month.passed")
 
 
-.view.view--progressbar('*ngIf'="view === 'progressbar'")
-  p {{percentageLivedSoFar}}
-  progress.progress(max="100", '[value]'="percentageLivedSoFar") {{percentageLivedSoFar}}%
+//.view.view--progressbar('*ngIf'="view === 'progressbar'")
+//  p {{percentageLivedSoFar}}
+//  progress.progress(max="lifeExpectancy", '[value]'="percentageLivedSoFar") {{percentageLivedSoFar}}%
 
 .view.view--timeline('*ngIf'="view === 'timeline'")
-  .timeline.is-centered_
+  .timeline.is-centered
     header.timeline-header.is-primary
       span.tag.is-medium.is-primary Born: {{yearOfBirth}}
     .timeline-item.is-danger
       //.timeline-marker.is-danger
-    .timeline-item
-    header.timeline-header('*ngFor'="let dead of getYoungerDead()")
-      span.tag {{dead}}
-    .timeline-item
+    //.timeline-item
+    .timeline-item('*ngFor'="let dead of getYoungerDead()")
+      .timeline-marker
+      .timeline-content
+        p.heading {{dead.name}}, {{dead.age}}
+        p.timeline--desc {{dead.desc}}
+
+    //span.timeline-item
+    //  p.timeline-content {{dead}}
     header.timeline-header
       span.tag.is-warning Now: {{today | date}}
     .timeline-item.is-danger
-    header.timeline-header('*ngFor'="let dead of getOlderDead()")
-      span.tag {{dead}}
-    .timeline-item
+    .timeline-item('*ngFor'="let dead of getOlderDead()")
+      .timeline-marker
+      .timeline-content
+        p.heading {{dead.name}}, {{dead.age}}
+        p.timeline--desc {{dead.desc}}
     header.timeline-header
       span.tag.is-danger {{getAge50Year()}} - You're almost done with your life
     .timeline-item.is-primary
