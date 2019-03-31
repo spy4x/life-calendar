@@ -28,9 +28,10 @@ ng-container('*ngIf'="user$ | async as user")
             .progress-bar-stack
               .progress-bar('*ngFor'="let ls of lifeStages", '[ngClass]'="ls.cssClass", '[style.width]'="ls.width + '%'")
                 p {{ls.text}}
+          button.button.is-large.is-primary('*ngIf'="lifeShowingFinished", '(click)'="showTimeline()") Show life timing
 
-
-          //button.button.is-small('(click)'="clearStorage()") RESET
+    lc-calendar('*ngIf'="timelineActive")
+      //button.button.is-small('(click)'="clearStorage()") RESET
 
 
 .notification.is-info.system-notification('*ngIf'="isNewVersionAvailable")

@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
   lifeStages: LifeStage[] = [];
   showLifeExpectancy = false;
   isShowingLife = false;
+  lifeShowingFinished = false;
+  timelineActive = false;
 
   constructor(private userData: UserDataService,
               private speech: SpeechService,
@@ -101,6 +103,7 @@ export class AppComponent implements OnInit {
     await this.speech.speak(`After that you will be doing whatever you could reach by that moment.`);
     await this.speech.speak(`If you want to do something big, like your desired startup - move fast!`);
     await this.speech.speak(`We wish you find enough energy inside yourself to do it! Good luck!`);
+    this.lifeShowingFinished = true;
   }
 
   runTimerThatChecksForUpdate(): void {
@@ -122,6 +125,12 @@ export class AppComponent implements OnInit {
     });
     // noinspection JSIgnoredPromiseFromCall
     this.swUpdate.checkForUpdate();
+  }
+
+  showTimeline() {
+    if (this.lifeShowingFinished) {
+      this.timelineActive = true;
+    }
   }
 
   updateApp(): void {
