@@ -22,7 +22,7 @@ interface LifeStage {
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
-  view: ViewType = 'radialBar';
+  view: ViewType = 'timeline';
   user$ = this.userData.user$;
   isAppOnline$ = this.connectionStatus.isOnline();
   shouldShowOfflineMessage = true;
@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   isShowingLife = false;
   lifeShowingFinished = false;
   timelineActive = false;
+  today = new Date();
 
   constructor(private userData: UserDataService,
               private speech: SpeechService,
@@ -64,6 +65,7 @@ export class AppComponent implements OnInit {
   }
 
   async showUserHisLife(): Promise<void> {
+    // return
     this.isShowingLife = true;
     const { age, gender, country, yearOfDeath, yearOfBirth, lifeExpectancy, yearsLeft } = this.user$.value;
     const bornMessage = `So you were born in ${country} in ${yearOfBirth}.`;

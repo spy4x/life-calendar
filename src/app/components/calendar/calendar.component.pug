@@ -21,39 +21,50 @@
 //  progress.progress(max="lifeExpectancy", '[value]'="percentageLivedSoFar") {{percentageLivedSoFar}}%
 
   //('*ngIf'="view === 'timeline'")
+button.button.is-small.is-success('(click)'="refreshItems()") SEE ANOTHER ITEMS
+
 .view.view--timeline
   .timeline.is-centered
     header.timeline-header.is-primary
       span.tag.is-medium.is-primary Born: {{yearOfBirth}}
-    .timeline-item.is-danger
-      //.timeline-marker.is-danger
-    //.timeline-item
-    .timeline-item('*ngFor'="let dead of getYoungerDead()")
+    .timeline-item
+    .timeline-item('*ngFor'="let dead of getYoungerAge()")
       .timeline-marker
       .timeline-content
-        p.heading {{dead.name}}, {{dead.age}}
+        h2 {{dead.age}}
         p.timeline--desc {{dead.desc}}
-
-    //span.timeline-item
-    //  p.timeline-content {{dead}}
-    header.timeline-header
-      span.tag.is-warning Now: {{age}} years
-    .timeline-item.is-danger
-    .timeline-item('*ngFor'="let dead of getOlderDead()")
-      .timeline-marker
+    .timeline-item
       .timeline-content
-        p.heading {{dead.name}}, {{dead.age}}
+    .timeline-item
+      .timeline-content
+    header.timeline-header
+      span.tag.is-warning Now: ({{today | date: 'yyyy'}}) {{age}} years old
+    .timeline-item.is-warning
+      .timeline-content
+    .timeline-item.is-warning('*ngFor'="let dead of getOlderAge()")
+      .timeline-marker.is-warning
+      .timeline-content
+        h2 {{dead.age}}
         p.timeline--desc {{dead.desc}}
+    .timeline-item.is-warning
+      .timeline-content
+    .timeline-item.is-warning
+      .timeline-content
     header.timeline-header
-      span.tag.is-danger {{getAge50Year()}} - You're almost done with your life
-    .timeline-item.is-primary
-      //.timeline-marker.is-danger.is-icon
-      //  i.fa.fa-flag
-      //.timeline-content
-      //  p.heading {{getAge50Year()}} - You still ended with life
-      //  p You still ended with life
+      span.tag.is-danger Retirement: ({{yearOfBirth + notEffectiveAge}}) {{notEffectiveAge}} years old
+    .timeline-item.is-danger
+      .timeline-content
+    .timeline-item.is-danger('*ngFor'="let dead of getOlderNotEffective()")
+      .timeline-marker.is-danger
+      .timeline-content
+        h2 {{dead.age}}
+        p.timeline--desc {{dead.desc}}
+    .timeline-item.is-danger
+      .timeline-content
+    .timeline-item.is-danger
+      .timeline-content
     header.timeline-header
-      span.tag.is-medium.is-primary Death: {{yearOfDeath}}
+      span.tag.is-medium.is-danger Death: ({{yearOfDeath}}) {{lifeExpectancy}} years old
 
 
 //.view.view--chart-radial-bar('*ngIf'="view === 'radialBar'")
