@@ -191,4 +191,8 @@ export class CalendarComponent implements OnInit, OnChanges {
     }
     return years;
   }
+
+  getClass(item: { type: string; age: any; desc: any }) {
+   return 'is-primary';
+  }
 }
