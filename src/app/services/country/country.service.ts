@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class CountryService {
@@ -9,36 +8,47 @@ export class CountryService {
   constructor(private http: HttpClient) { }
 
   async get(): Promise<string> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        if (this.country) {
-          resolve(this.country);
-        }
-        const response = await this.http.get<{ country: string }>('http://ip-api.com/json').toPromise();
-        if (response.country) {
-          this.country = response.country;
-          resolve(this.country);
-         }
+    if (this.country) {
+      return this.country;
+    }
+    try {
+      let response: any;
+      const currentPosition: any = await new Promise(async (resolve, reject) => {
         if (navigator.geolocation) {
-
-          await
-            navigator.geolocation.getCurrentPosition(async (position) => {
-              const data: any = await this.http.get('http://api.geonames.org/countryCode', {
-                params: {
-                  lat: `${position.coords.latitude}`,
-                  lng: `${position.coords.longitude}`,
-                  type: 'JSON',
-                  username: environment.geonamesUsername,
-                },
-              })
-                .toPromise();
-              this.country = data.countryName;
-              resolve(this.country);
-            });
+          navigator.geolocation.getCurrentPosition( (position) => {
+            resolve(position);
+          }, error => {
+            resolve(null);
+          });
+        } else {
+          resolve(null);
         }
-      } catch (e) {
-        reject(e);
+      });
+      if (currentPosition) {
+        const q = `${currentPosition.coords.latitude}+${currentPosition.coords.longitude}`;
+        const apiUrl = `https://nominatim.openstreetmap.org/reverse`;
+        response = await this.http.get(apiUrl, {
+          params: {
+            format: 'json',
+            lat: currentPosition.coords.latitude,
+            lon: currentPosition.coords.longitude,
+            'accept-language': 'en'
+          },
+        })
+          .toPromise();
+        if (response && response.address) {
+          return this.country = response.address.country;
+        }
       }
-    });
+
+      // response = await this.http.get<{ country: string }>('http://ip-api.com/json').toPromise();
+      // if (response && response.country) {
+      //   console.log(2);
+      //   return this.country = response.country;
+      // }
+      return this.country = null;
+    } catch (e) {
+    return null;
   }
+}
 }
