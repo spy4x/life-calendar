@@ -40,7 +40,7 @@ ng-container('*ngIf'="user$ | async as user")
                   '[percentageLivedSoFar]'="user.percentageLivedSoFar",
                   '[today]'="today")
 
-      button.button.is-dark.system-button.system-button-left( '*ngIf'="lifeShowingFinished",
+      button.button.is-dark.system-button.system-button-left(
                                                       '(click)'="clearStorage()",
                                                       title="Restart")
         svg.icon(xmlns='http://www.w3.org/2000/svg', height='512', viewBox='0 0 1026 1024', version='1.1')

@@ -19,6 +19,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ConnectionStatusService } from './services/connection-status/connection-status.service';
 import { VoteComponent } from './components/vote/vote.component';
+import { FirebaseService } from './services/firebase/firebase.service';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -35,9 +39,12 @@ import { VoteComponent } from './components/vote/vote.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule
   ],
-  providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService, ConnectionStatusService],
+  providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService, ConnectionStatusService, FirebaseService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
