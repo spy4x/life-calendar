@@ -19,3 +19,10 @@ ng-container('*ngIf'="user$ | async as user")
                 '[today]'="today",
                 '[view]'="view")
     button.button('(click)'="clearStorage()") RESET
+
+
+.notification.is-info.system-notification('*ngIf'="isNewVersionAvailable")
+  button.delete('(click)'="isNewVersionAvailable = false")
+  p New version is available.
+  button.button.is-primary.is-right.m-t-1('(click)'="updateApp()") Update now
+

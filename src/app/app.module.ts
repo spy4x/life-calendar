@@ -15,6 +15,9 @@ import { AgeAndGenderService } from './services/age-and-gender/age-and-gender.se
 import { WelcomeAgePickerComponent } from './components/welcome/age-picker/age-picker.component';
 import { CameraComponent } from './components/welcome/camera/camera.component';
 import { FormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { ConnectionStatusService } from './services/connection-status/connection-status.service';
 
 @NgModule({
   declarations: [
@@ -29,9 +32,10 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService],
+  providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService, ConnectionStatusService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
