@@ -26,18 +26,16 @@ table.view.view--vertical('*ngIf'="view === 'vertical'")
       span.tag.is-medium.is-primary Born: {{yearOfBirth}}
     .timeline-item.is-danger
       //.timeline-marker.is-danger
-      .timeline-content
-        //p.heading January 2016
-        //p Timeline content - Can include any HTML element
-    //.timeline-item.is-warning
-    //  .timeline-marker.is-warning.is-image.is-32x32
-    //    img(src='http://bulma.io/images/placeholders/32x32.png')
-    //  .timeline-content
-    //    p.heading February 2016
-    //    p Timeline content - Can include any HTML element
+    .timeline-item
+    header.timeline-header('*ngFor'="let dead of getYoungerDead()")
+      span.tag {{dead}}
+    .timeline-item
     header.timeline-header
       span.tag.is-warning Now: {{today | date}}
     .timeline-item.is-danger
+    header.timeline-header('*ngFor'="let dead of getOlderDead()")
+      span.tag {{dead}}
+    .timeline-item
     header.timeline-header
       span.tag.is-danger {{getAge50Year()}} - You're almost done with your life
     .timeline-item.is-primary

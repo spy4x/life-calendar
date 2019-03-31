@@ -3,6 +3,7 @@ import { ViewType } from '../../types/view.type';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import { diedYoung, diedYoungArray, getDiedByYears } from '../../../data/died-young';
 
 interface Year {
   title: string;
@@ -60,6 +61,14 @@ export class CalendarComponent implements OnChanges {
     return this.yearOfBirth + 50;
   }
 
+  getYoungerDead() {
+    return getDiedByYears().filter(dead => dead.age < this.age).map(dead => `${dead.name}, ${dead.age}`);
+  }
+
+  getOlderDead() {
+    return getDiedByYears().filter(dead => dead.age > this.age).map(dead => `${dead.name}, ${dead.age}`);
+  }
+
   // noinspection JSMethodCanBeStatic
   private drawChart() {
     /* Chart code */
@@ -68,7 +77,7 @@ export class CalendarComponent implements OnChanges {
 // Themes end
 
 // Create chart instance
-    let chart = am4core.create('chartdiv', am4charts.PieChart);
+    const chart = am4core.create('chartdiv', am4charts.PieChart);
 
 // Let's cut a hole in our Pie chart the size of 40% the radius
     chart.innerRadius = am4core.percent(40);

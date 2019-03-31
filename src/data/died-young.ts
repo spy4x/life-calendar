@@ -128,3 +128,16 @@ export const diedYoung = {
 
   }
 };
+
+export const diedYoungArray = Object.values(diedYoung).sort((first, second) => first.age > second.age ? 1 : -1);
+
+export const getDiedByYears = () => {
+  const randomSortedDead = Object.values(diedYoung).sort(() => Math.random() > 0.5 ? 1 : -1);
+  const diedByYears = [];
+  randomSortedDead.forEach(dead => {
+    if (!diedByYears.find(died => died.age === dead.age)) {
+      diedByYears.push(dead);
+    }
+  });
+  return diedByYears.sort((first, second) => first.age > second.age ? 1 : -1);
+};
