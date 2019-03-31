@@ -62,125 +62,82 @@ export class CalendarComponent implements OnChanges {
 
   // noinspection JSMethodCanBeStatic
   private drawChart() {
+    /* Chart code */
     // Themes begin
     am4core.useTheme(am4themes_animated);
-    // Themes end
+// Themes end
 
-    const chart = am4core.create('chartdiv', am4charts.RadarChart);
-    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+// Create chart instance
+    let chart = am4core.create('chartdiv', am4charts.PieChart);
 
-    chart.data = [
-      // {
-      //   category: 'One',
-      //   value1: 8,
-      //   value2: 2,
-      //   value3: 4,
-      //   value4: 3,
-      // },
-      // {
-      //   category: 'Two',
-      //   value1: 11,
-      //   value2: 4,
-      //   value3: 2,
-      //   value4: 4,
-      // },
-      // {
-      //   category: 'Three',
-      //   value1: 7,
-      //   value2: 6,
-      //   value3: 6,
-      //   value4: 2,
-      // },
-      // {
-      //   category: 'Four',
-      //   value1: 13,
-      //   value2: 8,
-      //   value3: 3,
-      //   value4: 2,
-      // },
-      {
-        category: '',
-        value1: 0,
-        //   value2: 10,
-        //   value3: 5,
-        //   value4: 1,
-      },
-      {
-        category: 'JESUS',
-        value1: 15,
-        value2: 12,
-        value3: 4,
-        // value4: 4,
-      },
-      {
-        category: 'YOU',
-        value1: this.age,
-        value2: (50 - this.age),
-        value3: this.lifeExpectancy - 50,
-        // value4:this.lifeExpectancy - 50,
-      },
-    ];
+// Let's cut a hole in our Pie chart the size of 40% the radius
+    chart.innerRadius = am4core.percent(40);
 
-    // chart.padding(20, 20, 20, 20);
-    chart.colors.step = 4;
+// Add data
+    chart.data = [{
+      'country': 'Lithuania',
+      'litres': 501.9,
+      'bottles': 1500,
+    }, {
+      'country': 'Czech Republic',
+      'litres': 301.9,
+      'bottles': 990,
+    }, {
+      'country': 'Ireland',
+      'litres': 201.1,
+      'bottles': 785,
+    }, {
+      'country': 'Germany',
+      'litres': 165.8,
+      'bottles': 255,
+    }, {
+      'country': 'Australia',
+      'litres': 139.9,
+      'bottles': 452,
+    }, {
+      'country': 'Austria',
+      'litres': 128.3,
+      'bottles': 332,
+    }, {
+      'country': 'UK',
+      'litres': 99,
+      'bottles': 150,
+    }, {
+      'country': 'Belgium',
+      'litres': 60,
+      'bottles': 178,
+    }, {
+      'country': 'The Netherlands',
+      'litres': 50,
+      'bottles': 50,
+    }];
 
-    // @ts-ignore
-    const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = 'category';
-    categoryAxis.renderer.labels.template.location = 0.5;
-    categoryAxis.renderer.labels.template.horizontalCenter = 'right';
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.renderer.tooltipLocation = 0.5;
-    categoryAxis.renderer.grid.template.strokeOpacity = 0.07;
-    categoryAxis.renderer.axisFills.template.disabled = true;
-    categoryAxis.interactionsEnabled = false;
-    categoryAxis.renderer.minGridDistance = 10;
+// Add and configure Series
+    let pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = 'litres';
+    pieSeries.dataFields.category = 'country';
+    pieSeries.slices.template.stroke = am4core.color('#fff');
+    pieSeries.slices.template.strokeWidth = 2;
+    pieSeries.slices.template.strokeOpacity = 1;
 
-    // @ts-ignore
-    const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-    valueAxis.tooltip.disabled = true;
-    valueAxis.renderer.labels.template.horizontalCenter = 'left';
-    valueAxis.min = 0;
-    valueAxis.max = this.lifeExpectancy + 10;
-    valueAxis.strictMinMax = true;
-    valueAxis.renderer.maxLabelPosition = 0.99;
-    valueAxis.renderer.minGridDistance = 10;
-    valueAxis.renderer.grid.template.strokeOpacity = 0.07;
-    valueAxis.renderer.axisFills.template.disabled = true;
-    valueAxis.interactionsEnabled = false;
+// Disabling labels and ticks on inner circle
+    pieSeries.labels.template.disabled = true;
+    pieSeries.ticks.template.disabled = true;
 
-    const series1 = chart.series.push(new am4charts.RadarColumnSeries());
-    series1.columns.template.tooltipText = '{name}: {valueX.value}';
-    series1.name = 'Series 1';
-    series1.dataFields.categoryY = 'category';
-    series1.dataFields.valueX = 'value1';
-    series1.stacked = true;
+// Disable sliding out of slices
+    pieSeries.slices.template.states.getKey('hover').properties.shiftRadius = 0;
+    pieSeries.slices.template.states.getKey('hover').properties.scale = 0.9;
 
-    const series2 = chart.series.push(new am4charts.RadarColumnSeries());
-    series2.columns.template.tooltipText = '{name}: {valueX.value}';
-    series2.name = 'Series 2';
-    series2.dataFields.categoryY = 'category';
-    series2.dataFields.valueX = 'value2';
-    series2.stacked = true;
+// Add second series
+    let pieSeries2 = chart.series.push(new am4charts.PieSeries());
+    pieSeries2.dataFields.value = 'bottles';
+    pieSeries2.dataFields.category = 'country';
+    pieSeries2.slices.template.stroke = am4core.color('#fff');
+    pieSeries2.slices.template.strokeWidth = 2;
+    pieSeries2.slices.template.strokeOpacity = 1;
+    pieSeries2.slices.template.states.getKey('hover').properties.shiftRadius = 0;
+    pieSeries2.slices.template.states.getKey('hover').properties.scale = 1.1;
 
-    const series3 = chart.series.push(new am4charts.RadarColumnSeries());
-    series3.columns.template.tooltipText = '{name}: {valueX.value}';
-    series3.name = 'Series 3';
-    series3.dataFields.categoryY = 'category';
-    series3.dataFields.valueX = 'value3';
-    series3.stacked = true;
-
-    const series4 = chart.series.push(new am4charts.RadarColumnSeries());
-    series4.columns.template.tooltipText = '{name}: {valueX.value}';
-    series4.name = 'Series 4';
-    series4.dataFields.categoryY = 'category';
-    series4.dataFields.valueX = 'value4';
-    series4.stacked = true;
-
-    chart.seriesContainer.zIndex = -1;
-
-    chart.cursor = new am4charts.RadarCursor();
-    chart.cursor.lineY.disabled = true;
   }
 
 }
