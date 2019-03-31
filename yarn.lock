@@ -1528,6 +1528,11 @@ builtins@^1.0.3:
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
   integrity sha1-y5T662HIaWRR2zZTThQi+U8K7og=
 
+bulma-extensions@^6.2.4:
+  version "6.2.4"
+  resolved "https://registry.yarnpkg.com/bulma-extensions/-/bulma-extensions-6.2.4.tgz#28f5589055b1c6bf894994f8e8260426e9ac1f0b"
+  integrity sha512-AaG3/OfGgdx03fQDabLadagATVpBvXXhFjiv7lnOd9DzTHRPC3fjlNL3qnVQ8IFS9t428FvS3lAmBmtfQh7ylA==
+
 bulma@^0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.4.tgz#7e74512e9118d9799021339e67e365ee0ac4f3f9"

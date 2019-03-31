@@ -1,0 +1,8 @@
+button.button((click)="changed.emit('horizontal')", [class.active]="view === 'horizontal'")
+  | Horizontal
+button.button((click)="changed.emit('vertical')", [class.active]="view === 'vertical'")
+  | Vertical
+button.button((click)="changed.emit('progressbar')", [class.active]="view === 'progressbar'")
+  | Progress bar
+button.button((click)="changed.emit('timeline')", [class.active]="view === 'timeline'")
+  | Timeline

@@ -18,6 +18,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "bulma": "^0.7.4",
+    "bulma-extensions": "^6.2.4",
     "core-js": "^2.5.4",
     "ng-cli-pug-loader": "^0.1.7",
     "rxjs": "~6.3.3",

@@ -23,7 +23,7 @@ export class AppComponent {
   gender: string = null;
   country: string = null;
   percentageLivedSoFar = ((this.age / this.yearsToLife) * 100).toFixed(2);
-  view: ViewType = 'vertical';
+  view: ViewType = 'timeline';
   user$ = this.userData.user$;
 
   constructor(private speech: SpeechService,
@@ -31,6 +31,11 @@ export class AppComponent {
               private ageOfDeathService: AgeOfDeathService,
               private ageAndGenderService: AgeAndGenderService,
               private userData: UserDataService) {
+  }
+
+  clearStorage() {
+    localStorage.clear();
+    document.location.reload();
   }
 
   setView(view: ViewType): void {

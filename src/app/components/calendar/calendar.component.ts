@@ -1,12 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ViewEncapsulation
-} from '@angular/core';
-import {ViewType} from '../../types/view.type';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ViewType } from '../../types/view.type';
 
 
 interface Year {
@@ -19,7 +12,7 @@ interface Year {
   templateUrl: './calendar.component.pug',
   styleUrls: ['./calendar.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class CalendarComponent implements OnChanges {
   @Input() yearOfBirth: number;
@@ -43,16 +36,20 @@ export class CalendarComponent implements OnChanges {
     for (let year = this.yearOfBirth; year <= this.yearOfDeath; year++) {
       const yearItem: Year = {
         title: year + '',
-        months: []
+        months: [],
       };
       for (let month = 1; month <= 12; month++) {
         yearItem.months.push({
           title: month + '',
-          passed: this.today > new Date(`${year}-${month}-31`)
+          passed: this.today > new Date(`${year}-${month}-31`),
         });
       }
       years.push(yearItem);
     }
     return years;
+  }
+
+  getAge50Year() {
+    return this.yearOfBirth + 50;
   }
 }

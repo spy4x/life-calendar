@@ -10,7 +10,7 @@ import {ViewType} from '../../types/view.type';
 
 @Component({
   selector: 'lc-view-switcher',
-  templateUrl: './view-switcher.component.html',
+  templateUrl: './view-switcher.component.jade',
   styleUrls: ['./view-switcher.component.sass'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush

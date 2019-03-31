@@ -2,21 +2,24 @@ ng-container('*ngIf'="user$ | async as user")
   lc-welcome('*ngIf'="user.isNew; else mainApp", '(done)'="markUserAsNotNew($event)")
 
   ng-template(#mainApp)
+    .main-container
 
-    lc-view-switcher('[view]'="view", '(changed)'="setView($event)")
+      lc-view-switcher('[view]'="view", '(changed)'="setView($event)")
 
-    p YearOfBirth: {{yearOfBirth}}
-    p Years: {{age}}
-    p Country: {{user.country}}
-    p Prediction: {{yearsToLife}}
-    p YearOfDeath: {{yearOfDeath}}
+      p YearOfBirth: {{yearOfBirth}}
+      p Years: {{age}}
+      p Country: {{user.country}}
+      p Prediction: {{yearsToLife}}
+      p YearOfDeath: {{yearOfDeath}}
 
-    lc-calendar('[yearOfBirth]'="yearOfBirth",
-                '[yearsToLife]'="yearsToLife",
-                '[yearOfDeath]'="yearOfDeath",
-                '[age]'="age",
-                '[percentageLivedSoFar]'="percentageLivedSoFar",
-                '[today]'="today",
-                '[view]'="view")
+      lc-calendar('[yearOfBirth]'="yearOfBirth",
+                  '[yearsToLife]'="yearsToLife",
+                  '[yearOfDeath]'="yearOfDeath",
+                  '[age]'="age",
+                  '[percentageLivedSoFar]'="percentageLivedSoFar",
+                  '[today]'="today",
+                  '[view]'="view")
 
-    lc-camera-access('(photoDone)'="markUserAsNotNew($event)")
+      //lc-camera-access('(photoDone)'="markUserAsNotNew($event)")
+
+      button.button('(click)'="clearStorage()") RESET

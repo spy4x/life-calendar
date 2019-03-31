@@ -19,3 +19,32 @@ table.view.view--vertical('*ngIf'="view === 'vertical'")
 .view.view--progressbar('*ngIf'="view === 'progressbar'")
   p {{percentageLivedSoFar}}
   progress.progress(max="100", '[value]'="percentageLivedSoFar") {{percentageLivedSoFar}}%
+
+.view.view--timeline('*ngIf'="view === 'timeline'")
+  .timeline.is-centered_
+    header.timeline-header.is-primary
+      span.tag.is-medium.is-primary Born: {{yearOfBirth}}
+    .timeline-item.is-danger
+      //.timeline-marker.is-danger
+      .timeline-content
+        //p.heading January 2016
+        //p Timeline content - Can include any HTML element
+    //.timeline-item.is-warning
+    //  .timeline-marker.is-warning.is-image.is-32x32
+    //    img(src='http://bulma.io/images/placeholders/32x32.png')
+    //  .timeline-content
+    //    p.heading February 2016
+    //    p Timeline content - Can include any HTML element
+    header.timeline-header
+      span.tag.is-warning Now: {{today | date}}
+    .timeline-item.is-danger
+    header.timeline-header
+      span.tag.is-danger {{getAge50Year()}} - You still ended with life
+    .timeline-item.is-primary
+      //.timeline-marker.is-danger.is-icon
+      //  i.fa.fa-flag
+      //.timeline-content
+      //  p.heading {{getAge50Year()}} - You still ended with life
+      //  p You still ended with life
+    header.timeline-header
+      span.tag.is-medium.is-primary Death: {{yearOfDeath}}
