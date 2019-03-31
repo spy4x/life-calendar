@@ -28,7 +28,7 @@ ng-container('*ngIf'="user$ | async as user")
             .progress-bar-stack
               .progress-bar('*ngFor'="let ls of lifeStages", '[ngClass]'="ls.cssClass", '[style.width]'="ls.width + '%'")
                 p {{ls.text}}
-          button.button.btn-timeline.is-success.m-t-1('*ngIf'="!timelineActive",
+          button.button.btn-timeline.is-success.m-t-1('*ngIf'="lifeShowingFinished && !timelineActive",
                                                 '(click)'="showTimeline()")
             | Show timeline 🔥
 
