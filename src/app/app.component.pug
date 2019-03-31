@@ -46,11 +46,11 @@ ng-container('*ngIf'="user$ | async as user")
           a.button.is-success.is-right(href="https://www.angularattack.com/entries/77-asap/vote" target="_blank")
             | Vote for me 🎖
 
-.notification.is-info.system-notification('*ngIf'="isNewVersionAvailable")
+.notification.is-info.system-notification.slide-down-animation('*ngIf'="isNewVersionAvailable")
   button.delete('(click)'="isNewVersionAvailable = false")
   p New version is available.
   button.button.is-primary.is-right.m-t-1('(click)'="updateApp()") Update now
 
-.notification.is-warning.system-notification('*ngIf'="!(isAppOnline$ | async) && shouldShowOfflineMessage")
+.notification.is-warning.system-notification.slide-down-animation('*ngIf'="!(isAppOnline$ | async) && shouldShowOfflineMessage")
   button.delete('(click)'="shouldShowOfflineMessage = false")
   p You are offline
