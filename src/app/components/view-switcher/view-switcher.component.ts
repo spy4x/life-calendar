@@ -1,11 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component, EventEmitter,
-  Input,
-  OnInit, Output,
-  ViewEncapsulation
-} from '@angular/core';
-import {ViewType} from '../../types/view.type';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ViewType } from '../../types/view.type';
 
 
 @Component({
@@ -15,14 +9,7 @@ import {ViewType} from '../../types/view.type';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewSwitcherComponent implements OnInit {
+export class ViewSwitcherComponent {
   @Input() view: ViewType;
   @Output() changed = new EventEmitter<ViewType>();
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
 }

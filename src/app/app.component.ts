@@ -11,18 +11,19 @@ import { SpeechService } from './services/speech/speech.service';
 export class AppComponent {
   today = new Date();
   yearOfBirth = 1990;
-  yearsToLife = 75;
-  yearOfDeath = this.yearOfBirth + this.yearsToLife;
+  lifeExpectancy = 75;
+  yearOfDeath = this.yearOfBirth + this.lifeExpectancy;
   age = this.today.getFullYear() - this.yearOfBirth;
   gender: string = null;
   country: string = null;
-  percentageLivedSoFar = ((this.age / this.yearsToLife) * 100).toFixed(2);
-  view: ViewType = 'timeline';
+  percentageLivedSoFar = ((this.age / this.lifeExpectancy) * 100).toFixed(2);
+  view: ViewType = 'radialBar';
   user$ = this.userData.user$;
 
   constructor(private userData: UserDataService, private speech: SpeechService) {
   }
 
+  // noinspection JSMethodCanBeStatic
   clearStorage() {
     localStorage.clear();
     document.location.reload();
