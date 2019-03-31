@@ -23,6 +23,7 @@ export class WelcomeCountryPickerComponent implements OnInit {
 
   async ngOnInit() {
     await Promise.all([this.speech.speak(`Let's see where you are from...`), sleep(2000)]);
+    // await this.getCountry();
     this.getCountry();
   }
 
@@ -32,6 +33,7 @@ export class WelcomeCountryPickerComponent implements OnInit {
       if (!this.country) {
         throw new Error(`Timeout happened`);
       }
+      // await this.setCountry(this.country);
       this.setCountry(this.country);
     } catch (error) {
       console.error(`Couldn't recognize country.`, error);
@@ -42,7 +44,7 @@ export class WelcomeCountryPickerComponent implements OnInit {
   }
 
   async setCountry(country: string): Promise<void> {
-    await Promise.all([this.speech.speak(`I am see, you are from ${country}! Ok.`), sleep(2000)]);
+    await Promise.all([this.speech.speak(`You are from ${country}! Ok.`), sleep(2000)]);
     this.userData.patch({ country });
   }
 }

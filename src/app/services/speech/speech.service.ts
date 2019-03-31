@@ -31,6 +31,7 @@ export class SpeechService {
       setTimeout(() => resolve(), 5000); // fallback, because sometimes bug happens - "onend" is not called at all
       try {
         const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en';
         utterance.onend = () => resolve();
         utterance.onerror = error => reject(error);
         utterance.pitch = 1;

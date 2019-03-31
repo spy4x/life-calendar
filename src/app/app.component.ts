@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   today = new Date();
   view: ViewType = 'radialBar';
   user$ = this.userData.user$;
-  isAppOnline$ = this.connectionStatus.isOnline();
+  // isAppOnline$ = this.connectionStatus.isOnline();
   isNewVersionAvailable = false;
 
   constructor(private userData: UserDataService,
@@ -64,13 +64,15 @@ export class AppComponent implements OnInit {
       try {
         await this.swUpdate.checkForUpdate();
       } catch (error) {
-        if (error.message === 'Service workers are disabled or not supported by this browser' && !environment.production) {
+        if (error.message === 'Service workers are disabled or not supported by this browser' &&
+          !environment.production) {
           // it's ok for development
         } else {
           throw error;
         }
       }
     });
+    // noinspection JSIgnoredPromiseFromCall
     this.swUpdate.checkForUpdate();
   }
 

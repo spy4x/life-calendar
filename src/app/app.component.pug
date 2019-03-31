@@ -1,5 +1,5 @@
 ng-container('*ngIf'="user$ | async as user")
-  lc-welcome('*ngIf'="user.isNew; else mainApp", '(done)'="markUserAsNotNew($event)")
+  lc-welcome('*ngIf'="user.isNew; else mainApp", '(done)'="markUserAsNotNew()")
 
   ng-template(#mainApp)
 

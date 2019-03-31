@@ -84,45 +84,45 @@ export class CalendarComponent implements OnChanges {
 
 // Add data
     chart.data = [{
-      'country': 'Lithuania',
-      'litres': 501.9,
-      'bottles': 1500,
+      country: 'Lithuania',
+      litres: 501.9,
+      bottles: 1500,
     }, {
-      'country': 'Czech Republic',
-      'litres': 301.9,
-      'bottles': 990,
+      country: 'Czech Republic',
+      litres: 301.9,
+      bottles: 990,
     }, {
-      'country': 'Ireland',
-      'litres': 201.1,
-      'bottles': 785,
+      country: 'Ireland',
+      litres: 201.1,
+      bottles: 785,
     }, {
-      'country': 'Germany',
-      'litres': 165.8,
-      'bottles': 255,
+      country: 'Germany',
+      litres: 165.8,
+      bottles: 255,
     }, {
-      'country': 'Australia',
-      'litres': 139.9,
-      'bottles': 452,
+      country: 'Australia',
+      litres: 139.9,
+      bottles: 452,
     }, {
-      'country': 'Austria',
-      'litres': 128.3,
-      'bottles': 332,
+      country: 'Austria',
+      litres: 128.3,
+      bottles: 332,
     }, {
-      'country': 'UK',
-      'litres': 99,
-      'bottles': 150,
+      country: 'UK',
+      litres: 99,
+      bottles: 150,
     }, {
-      'country': 'Belgium',
-      'litres': 60,
-      'bottles': 178,
+      country: 'Belgium',
+      litres: 60,
+      bottles: 178,
     }, {
-      'country': 'The Netherlands',
-      'litres': 50,
-      'bottles': 50,
+      country: 'The Netherlands',
+      litres: 50,
+      bottles: 50,
     }];
 
 // Add and configure Series
-    let pieSeries = chart.series.push(new am4charts.PieSeries());
+    const pieSeries = chart.series.push(new am4charts.PieSeries());
     pieSeries.dataFields.value = 'litres';
     pieSeries.dataFields.category = 'country';
     pieSeries.slices.template.stroke = am4core.color('#fff');
@@ -138,7 +138,7 @@ export class CalendarComponent implements OnChanges {
     pieSeries.slices.template.states.getKey('hover').properties.scale = 0.9;
 
 // Add second series
-    let pieSeries2 = chart.series.push(new am4charts.PieSeries());
+    const pieSeries2 = chart.series.push(new am4charts.PieSeries());
     pieSeries2.dataFields.value = 'bottles';
     pieSeries2.dataFields.category = 'country';
     pieSeries2.slices.template.stroke = am4core.color('#fff');
