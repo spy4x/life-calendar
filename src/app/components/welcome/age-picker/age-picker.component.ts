@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AgeAndGender, AgeAndGenderService } from '../../../services/age-and-gender/age-and-gender.service';
+import { AgeAndGenderService } from '../../../services/age-and-gender/age-and-gender.service';
 import { SpeechService } from '../../../services/speech/speech.service';
 import { CountryService } from '../../../services/country/country.service';
 import { AgeOfDeathService } from '../../../services/age-of-death/age-of-death.service';
@@ -45,15 +45,16 @@ export class WelcomeAgePickerComponent implements OnInit {
       }
       this.photoDataUrl = photoDataUrl;
       this.isRecognizing = true;
-      const { age, gender }: AgeAndGender = await this.ageAndGenderService.get(photoDataUrl);
+      // const { age, gender }: AgeAndGender = await this.ageAndGenderService.get(photoDataUrl);
 
       const result = await Promise.race([this.ageAndGenderService.get(photoDataUrl), sleep(5000)]) || null;
       if (!result) {
         throw new Error(`cant-recognize-age`);
       }
-      this.age = age;
-      this.gender = gender;
-      await Promise.all([this.speech.speak(`I guess you are ${age} years old ${gender}. Am I right?`), sleep(2000)]);
+      this.age = result.age;
+      this.gender = result.gender;
+      await Promise.all(
+        [this.speech.speak(`I guess you are ${this.age} years old ${this.gender}. Am I right?`), sleep(2000)]);
     } catch (e) {
       if (e.message === 'cant-recognize-age') {
         await this.speech.speak(`Hmm... I couldn't recognize your age.`);
