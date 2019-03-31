@@ -3,6 +3,7 @@ import { SpeechService } from '../../../services/speech/speech.service';
 import { CountryService } from '../../../services/country/country.service';
 import { UserDataService } from '../../../services/user-data/user-data.service';
 import { AGES } from '../../../../data/ages-wiki';
+import { sleep } from '../../../services/sleep.helper';
 
 @Component({
   selector: 'lc-welcome-country-picker',
@@ -21,7 +22,7 @@ export class WelcomeCountryPickerComponent implements OnInit {
               private userData: UserDataService) { }
 
   async ngOnInit() {
-    await this.speech.speak(`Let's see where you are from...`);
+    await Promise.all([this.speech.speak(`Let's see where you are from...`), sleep(2000)]);
     this.getCountry();
   }
 
@@ -38,7 +39,7 @@ export class WelcomeCountryPickerComponent implements OnInit {
   }
 
   async setCountry(country: string): Promise<void> {
-    await this.speech.speak(`Wow, you are from ${country}! Ok.`);
+    await Promise.all([this.speech.speak(`Wow, you are from ${country}! Ok.`), sleep(2000)]);
     this.userData.patch({ country });
   }
 }

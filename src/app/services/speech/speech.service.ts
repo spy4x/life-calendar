@@ -28,7 +28,7 @@ export class SpeechService {
       synth.cancel();
     }
     return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(), 4000); // fallback, because sometimes bug happens - "onend" is not called at all
+      setTimeout(() => resolve(), 5000); // fallback, because sometimes bug happens - "onend" is not called at all
       try {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.onend = () => resolve();

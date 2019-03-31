@@ -8,9 +8,10 @@ const defaultUser: User = {
   shouldPlayVoice: false, // TODO: make true before release
   country: null,
   yearOfBirth: 0,
-  yearsToLife: 0,
+  lifeExpectancy: 0,
+  yearOfDeath: 0,
   age: 0,
-  ageOfDeath: 0,
+  yearsLeft: 0,
   gender: 'male',
 };
 

@@ -5,9 +5,9 @@ section.hero.is-dark.is-fullheight
         h1.title
           | Wanna be motivated by DEATH ☠️?
         h2.title
-          button.button.is-large.is-success('(click)'="closeWelcome()") Sure, let's start!
+          button.button.is-large.is-success('(click)'="closeWelcome()") 😍 Sure, let's go!
       ng-template(#countryPicker)
         lc-welcome-country-picker('*ngIf'="!(user$ | async).country; else agePicker")
 
         ng-template(#agePicker)
-          lc-welcome-age-picker('(done)'="done.emit($event)")
+          lc-welcome-age-picker('(done)'="done.emit()")

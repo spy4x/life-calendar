@@ -1,0 +1,16 @@
+section.hero.is-dark.is-fullheight('*ngIf'="!isStreaming")
+  .hero-body
+    .container.has-text-centered
+      h1.title('*ngIf'="isSupported") Let me look at your face to understand your age and gender
+      h1.title('*ngIf'="!isSupported") Video steam is not supported =/
+
+div.bottom-panel('*ngIf'="!isPhotoReady && isStreaming")
+  button.button.is-primary('(click)'="takePicture()") Make Photo
+div.bottom-panel.has-text-centered('*ngIf'="isPhotoReady")
+  .buttons.is-centered
+    button.button.is-warning('(click)'="newPhoto()") Retake
+    button.button.is-success('(click)'="ok()") Looks fine
+h1.title.m-t-1 {{isPhotoReady ? 'Does it look good? 🤪' : 'Smile! 🙃'}}
+video(#video width="640" height="480" autoplay playsinline '[class.is-hidden]'="isPhotoReady") Video stream not available.
+canvas.is-hidden(#canvas width="640" height="480")
+img(#photo width="640" height="480" '[class.is-hidden]'="!isPhotoReady")

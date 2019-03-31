@@ -4,6 +4,6 @@ div('*ngIf'="!isCountryRecognitionError; else selectCountryManually")
 ng-template(#selectCountryManually)
   .control.has-text-centered
     .select
-      select('(change)'="setCountry($event.target.value)")
+      select.fixed-width('(change)'="setCountry($event.target.value)")
         option(disabled) Select country
         option('*ngFor'="let country of countries") {{country}}

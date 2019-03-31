@@ -1,7 +1,0 @@
-<div>
-  <div *ngIf="!isPhotoReady"><button id="snap" (click)="capture()">Snap Photo</button></div>
-  <div *ngIf="isPhotoReady"><button id="newPhoto" (click)="newPhoto()">Make a New Photo</button></div>
-  <div *ngIf="isPhotoReady"><button id="ok" (click)="ok()">Ok</button></div>
-  <div *ngIf="!isPhotoReady"><video #video id="video" width="640" height="480" autoplay></video></div>
-  <canvas #canvas id="canvas" width="640" height="480"></canvas>
-</div>
