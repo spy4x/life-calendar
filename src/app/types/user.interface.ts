@@ -8,5 +8,5 @@ export interface User {
   age: number;
   yearsLeft: number;
   gender: string;
-  percentageLivedSoFar: number,
+  percentageLivedSoFar: number;
 }

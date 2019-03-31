@@ -53,13 +53,13 @@ export class CameraComponent implements AfterViewInit, OnDestroy {
       this.photoDataUrl = this.canvas.nativeElement.toDataURL('image/png');
       this.photo.nativeElement.setAttribute('src', this.photoDataUrl);
     } else {
-      this.clearphoto();
+      this.clearPhoto();
     }
     this.isPhotoReady = true;
     new Audio('/assets/camera_shutter.wav').play();
   }
 
-  clearphoto() {
+  clearPhoto() {
     const context = this.canvas.nativeElement.getContext('2d');
     context.fillStyle = '#AAA';
     context.fillRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);

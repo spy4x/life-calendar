@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
               private appRef: ApplicationRef) {
   }
 
-  ngOnInit(): void {
-    this.runTimerThatChecksForUpdate();
+  async ngOnInit(): void {
+    await this.runTimerThatChecksForUpdate();
     this.swUpdate.available.subscribe(() => {
       this.isNewVersionAvailable = true;
     });
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
     await this.speech.speak(`And by the way - Do you know that you have about ${yearsLeft} years left?`);
   }
 
-  runTimerThatChecksForUpdate(): void {
+  async runTimerThatChecksForUpdate(): void {
     const appIsStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
     const every30Sec$ = interval(30000); // every 30 sec
     const every30SecAfterAppIsStable$ = concat(appIsStable$, every30Sec$);
@@ -64,14 +64,15 @@ export class AppComponent implements OnInit {
       try {
         await this.swUpdate.checkForUpdate();
       } catch (error) {
-        if (error.message === 'Service workers are disabled or not supported by this browser' && !environment.production) {
+        if (error.message === 'Service workers are disabled or not supported by this browser' &&
+          !environment.production) {
           // it's ok for development
         } else {
           throw error;
         }
       }
     });
-    this.swUpdate.checkForUpdate();
+    await this.swUpdate.checkForUpdate();
   }
 
   updateApp(): void {
