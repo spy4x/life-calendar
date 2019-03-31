@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ViewType } from '../../types/view.type';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { getAchievementsByYears } from '../../../data/achievements';
+import { SpeechService } from '../../services/speech/speech.service';
 
 interface Year {
   title: string;
@@ -17,7 +18,7 @@ interface Year {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class CalendarComponent implements OnChanges {
+export class CalendarComponent implements OnInit, OnChanges {
   @Input() yearOfBirth: number;
   @Input() lifeExpectancy: number;
   notEffectiveAge = 50;
@@ -29,6 +30,13 @@ export class CalendarComponent implements OnChanges {
   years: Year[];
   private achievementsByYears: { age: any; desc: any }[];
 
+  constructor(private speech: SpeechService) {}
+
+  async ngOnInit() {
+    await this.speech.speak(`Here you can see achievements of famous people before and after your age`);
+    await this.speech.speak(`Don't scroll to the bottom. You won't like it there.`);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     const thus = this;
     if ((changes.yearOfBirth || changes.lifeExpectancy || changes.view) && this.yearOfBirth && this.lifeExpectancy) {
@@ -39,6 +47,26 @@ export class CalendarComponent implements OnChanges {
         });
       }
     }
+  }
+
+  getAge50Year() {
+    return this.yearOfBirth + 50;
+  }
+
+  getYoungerAge() {
+    return this.achievementsByYears.filter(dead => dead.age < this.age);
+  }
+
+  getOlderAge() {
+    return this.achievementsByYears.filter(dead => dead.age > this.age && dead.age > this.notEffectiveAge);
+  }
+
+  getOlderNotEffective() {
+    return this.achievementsByYears.filter(dead => dead.age > this.notEffectiveAge && dead.age < this.lifeExpectancy);
+  }
+
+  refreshItems() {
+    this.achievementsByYears = getAchievementsByYears();
   }
 
   private generateYears(): Year[] {
@@ -58,22 +86,6 @@ export class CalendarComponent implements OnChanges {
       years.push(yearItem);
     }
     return years;
-  }
-
-  getAge50Year() {
-    return this.yearOfBirth + 50;
-  }
-
-  getYoungerAge() {
-    return this.achievementsByYears.filter(dead => dead.age < this.age);
-  }
-
-  getOlderAge() {
-    return this.achievementsByYears.filter(dead => dead.age > this.age && dead.age > this.notEffectiveAge);
-  }
-
-  getOlderNotEffective() {
-    return this.achievementsByYears.filter(dead => dead.age > this.notEffectiveAge && dead.age < this.lifeExpectancy);
   }
 
   // noinspection JSMethodCanBeStatic
@@ -154,9 +166,5 @@ export class CalendarComponent implements OnChanges {
     pieSeries2.slices.template.states.getKey('hover').properties.shiftRadius = 0;
     pieSeries2.slices.template.states.getKey('hover').properties.scale = 1.1;
 
-  }
-
-  refreshItems() {
-    this.achievementsByYears = getAchievementsByYears();
   }
 }

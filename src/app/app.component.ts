@@ -132,10 +132,10 @@ export class AppComponent implements OnInit {
       await this.speech.speak(`But imagine that during next ${activeLifeYearsLeft} years you will be able to actively affect your life.`);
       await this.speech.speak(`After that you will be doing whatever you could reach by that moment.`);
       await this.speech.speak(`If you want to do something big, like your desired startup - move fast!`);
-      await this.speech.speak(`We wish you find enough energy inside yourself to do it! Good luck!`);
+      await this.speech.speak(`Now check timeline!`);
     } else {
       await this.speech.speak(`It seems you had a long live! For sure it was tough, but happy life.`);
-      await this.speech.speak(`We wish you calm retirement. You deserve it. Good luck!`);
+      await this.speech.speak(`We wish you calm retirement. Now check timeline!`);
     }
     this.lifeShowingFinished = true;
   }
