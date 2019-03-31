@@ -12,8 +12,7 @@ export class SpeechService {
     if (!this.voice) {
       this.voices = synth.getVoices().filter(v => v.lang.startsWith('en'));
       const danielVoice = this.voices.find(v => (v.voiceURI.toLowerCase().indexOf('daniel') >= 0) && v.lang === 'en-GB');
-      const anyEnglishVoice = this.voices.find(v => v.lang.startsWith('en'));
-      this.voice = danielVoice || anyEnglishVoice || this.voices[0];
+      this.voice = danielVoice || this.voices[0];
     }
     return this.voice;
   }
