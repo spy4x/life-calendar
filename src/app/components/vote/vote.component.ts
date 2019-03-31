@@ -10,6 +10,6 @@ import { ChangeDetectionStrategy, Component,  ViewEncapsulation } from '@angular
 export class VoteComponent {
   constructor() {}
   vote() {
-    window.location.href = 'https://www.angularattack.com/entries/77-asap/vote';
+    window.open('https://www.angularattack.com/entries/77-asap/vote', '_blank');
   }
 }
