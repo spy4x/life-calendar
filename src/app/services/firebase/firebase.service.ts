@@ -10,13 +10,15 @@ export class FirebaseService {
     try {
       const id = this.db.createId();
       const photoPath = `photos/${id}`;
-      const data = {
-        ...userData,
-        photoPath
-      };
-      await this.db.doc(`users/${id}`).set(data);
       const fileBlob = this.b64toBlob(file);
       await this.storage.upload(photoPath, fileBlob);
+      const photoUrl = await this.storage.ref(photoPath).getDownloadURL().toPromise();
+      const data = {
+        ...userData,
+        photoPath,
+        photoUrl
+      };
+      await this.db.doc(`users/${id}`).set(data);
     } catch (error) {
       console.log(error);
     }

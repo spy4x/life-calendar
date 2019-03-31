@@ -92,7 +92,7 @@ export class AppComponent implements OnInit {
     }
     const activeLifeYearsLeft = activeLifeGap - age;
     this.userData.patch({ activeLifeGap });
-    if (age === lifeExpectancy) {
+    if (age >= lifeExpectancy) {
       this.lifeShowingFinished = true;
       return;
     }
