@@ -18,7 +18,7 @@ ng-container('*ngIf'="user$ | async as user")
 
 
     section.hero.is-dark.is-fullheight
-      .hero-body
+      .hero-body('*ngIf'="!timelineActive")
         .container.has-text-centered
           button.button.is-large.is-primary('*ngIf'="!isShowingLife", '(click)'="showUserHisLife()")
             | Show me my life
@@ -28,9 +28,16 @@ ng-container('*ngIf'="user$ | async as user")
             .progress-bar-stack
               .progress-bar('*ngFor'="let ls of lifeStages", '[ngClass]'="ls.cssClass", '[style.width]'="ls.width + '%'")
                 p {{ls.text}}
-          button.button.is-large.is-primary('*ngIf'="lifeShowingFinished", '(click)'="showTimeline()") Show life timing
+          button.button.btn-timeline.is-large.is-primary('*ngIf'="lifeShowingFinished && !timelineActive", '(click)'="showTimeline()")
+            | Show life timing
 
-    lc-calendar('*ngIf'="timelineActive")
+      lc-calendar('*ngIf'="timelineActive",
+      '[yearOfBirth]'="user.yearOfBirth",
+      '[lifeExpectancy]'="user.lifeExpectancy",
+      '[yearOfDeath]'="user.yearOfDeath",
+      '[age]'="user.age",
+      '[percentageLivedSoFar]'="user.percentageLivedSoFar",
+      '[today]'="today")
       //button.button.is-small('(click)'="clearStorage()") RESET
 
 
