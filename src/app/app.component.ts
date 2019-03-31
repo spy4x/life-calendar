@@ -15,13 +15,6 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent implements OnInit {
   today = new Date();
-  yearOfBirth = 1990;
-  lifeExpectancy = 75;
-  yearOfDeath = this.yearOfBirth + this.lifeExpectancy;
-  age = this.today.getFullYear() - this.yearOfBirth;
-  gender: string = null;
-  country: string = null;
-  percentageLivedSoFar = ((this.age / this.lifeExpectancy) * 100).toFixed(2);
   view: ViewType = 'radialBar';
   user$ = this.userData.user$;
   isAppOnline$ = this.connectionStatus.isOnline();
@@ -64,10 +57,10 @@ export class AppComponent implements OnInit {
 
   runTimerThatChecksForUpdate(): void {
     const appIsStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
-    const everyMinute$ = interval(60000); // every 1 minute
-    const everyMinuteAfterAppIsStable$ = concat(appIsStable$, everyMinute$);
+    const every30Sec$ = interval(30000); // every 30 sec
+    const every30SecAfterAppIsStable$ = concat(appIsStable$, every30Sec$);
 
-    everyMinuteAfterAppIsStable$.subscribe(async () => {
+    every30SecAfterAppIsStable$.subscribe(async () => {
       try {
         await this.swUpdate.checkForUpdate();
       } catch (error) {

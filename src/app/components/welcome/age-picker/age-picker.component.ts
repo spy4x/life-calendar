@@ -36,7 +36,7 @@ export class WelcomeAgePickerComponent implements OnInit {
     await Promise.all([this.speech.speak(`Let me look at your face to understand your age and gender`), sleep(2000)]);
   }
 
-  async usePhoto(photoDataUrl: string): Promise<void> {
+  async usePhoto(photoDataUrl: string | null): Promise<void> {
     try {
       if (!photoDataUrl) {
         throw new Error('No photo was provided');
@@ -61,12 +61,22 @@ export class WelcomeAgePickerComponent implements OnInit {
   async finish() {
     this.isFinishButtonClicked = true;
     await this.speech.speak(`Awesome. Let's see what that means...`);
-    const {age, gender, country} = this;
+    const { age, gender, country } = this;
     const lifeExpectancy = await this.ageOfDeathService.get(country, gender);
     const yearOfBirth = new Date().getFullYear() - age;
     const yearOfDeath = yearOfBirth + lifeExpectancy;
     const yearsLeft = lifeExpectancy - age;
-    this.userData.patch({ age, gender, country, lifeExpectancy: lifeExpectancy, yearOfBirth, yearOfDeath, yearsLeft });
+    const percentageLivedSoFar: number = parseFloat(((age / lifeExpectancy) * 100).toFixed(2));
+    this.userData.patch({
+      age,
+      gender,
+      country,
+      lifeExpectancy,
+      yearOfBirth,
+      yearOfDeath,
+      yearsLeft,
+      percentageLivedSoFar,
+    });
     this.done.emit();
   }
 }

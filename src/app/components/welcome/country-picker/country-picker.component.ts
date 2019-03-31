@@ -28,7 +28,10 @@ export class WelcomeCountryPickerComponent implements OnInit {
 
   async getCountry(): Promise<void> {
     try {
-      this.country = await this.countryService.get();
+      this.country = await Promise.race([this.countryService.get(), sleep(5000)]) || null;
+      if (!this.country) {
+        throw new Error(`Timeout happened`);
+      }
       this.setCountry(this.country);
     } catch (error) {
       console.error(`Couldn't recognize country.`, error);
@@ -39,7 +42,7 @@ export class WelcomeCountryPickerComponent implements OnInit {
   }
 
   async setCountry(country: string): Promise<void> {
-    await Promise.all([this.speech.speak(`Wow, you are from ${country}! Ok.`), sleep(2000)]);
+    await Promise.all([this.speech.speak(`I am see, you are from ${country}! Ok.`), sleep(2000)]);
     this.userData.patch({ country });
   }
 }

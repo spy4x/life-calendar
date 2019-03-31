@@ -1,4 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
+import { sleep } from '../../../services/sleep.helper';
+import { interval, timer } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'lc-welcome-camera',
@@ -6,7 +9,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, Output, 
   styleUrls: ['./camera.component.sass'],
 })
 export class CameraComponent implements AfterViewInit, OnDestroy {
-  @Output() done = new EventEmitter<string>();
+  @Output() done = new EventEmitter<string | null>();
   @ViewChild('video')
   public video: ElementRef;
   @ViewChild('canvas')
@@ -14,9 +17,10 @@ export class CameraComponent implements AfterViewInit, OnDestroy {
   @ViewChild('photo')
   public photo: ElementRef;
   @Output()
-  public photoDataUrl: string;
-  public isPhotoReady = false;
-  public videoStream: MediaStream;
+  photoDataUrl: string;
+  isPhotoReady = false;
+  videoStream: MediaStream;
+  timerSecondsLeft;
 
   width = 320;    // We will scale the photo width to this
   height = 0;     // This will be computed based on the input stream
@@ -52,6 +56,7 @@ export class CameraComponent implements AfterViewInit, OnDestroy {
       this.clearphoto();
     }
     this.isPhotoReady = true;
+    new Audio('/assets/camera_shutter.wav').play();
   }
 
   clearphoto() {
@@ -81,7 +86,7 @@ export class CameraComponent implements AfterViewInit, OnDestroy {
       }
       videoEl.play();
 
-      videoEl.addEventListener('canplay', () => {
+      videoEl.addEventListener('canplay', async () => {
         if (!this.isStreaming) {
           this.height = videoEl.videoHeight / (videoEl.videoWidth / this.width);
 
@@ -97,10 +102,19 @@ export class CameraComponent implements AfterViewInit, OnDestroy {
           this.canvas.nativeElement.setAttribute('width', this.width);
           this.canvas.nativeElement.setAttribute('height', this.height);
           this.isStreaming = true;
+          interval(1000).pipe(takeUntil(timer(6100))).subscribe(index => {
+            this.timerSecondsLeft = 5 - index;
+            if (!this.timerSecondsLeft) {
+              this.takePicture();
+            }
+          });
+
         }
       }, false);
     } else {
       this.isSupported = false;
+      await sleep(1500);
+      this.done.emit(null);
     }
   }
 
