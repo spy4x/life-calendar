@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ConnectionStatusService } from './services/connection-status/connection-status.service';
-import { VoteComponent } from './components/vote/vote.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +28,12 @@ import { VoteComponent } from './components/vote/vote.component';
     WelcomeCountryPickerComponent,
     WelcomeAgePickerComponent,
     CameraComponent,
-    VoteComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService, ConnectionStatusService],
   bootstrap: [AppComponent],

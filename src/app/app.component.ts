@@ -162,9 +162,7 @@ export class AppComponent implements OnInit {
   }
 
   showTimeline() {
-    if (this.lifeShowingFinished) {
-      this.timelineActive = true;
-    }
+    this.timelineActive = true;
   }
 
   updateApp(): void {
