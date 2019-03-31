@@ -44,14 +44,23 @@ export class WelcomeAgePickerComponent implements OnInit {
       this.photoDataUrl = photoDataUrl;
       this.isRecognizing = true;
       const { age, gender }: AgeAndGender = await this.ageAndGenderService.get(photoDataUrl);
+
+      const result = await Promise.race([this.ageAndGenderService.get(photoDataUrl), sleep(5000)]) || null;
+      if (!result) {
+        throw new Error(`cant-recognize-age`);
+      }
       this.age = age;
       this.gender = gender;
       await Promise.all([this.speech.speak(`I guess you are ${age} years old ${gender}. Am I right?`), sleep(2000)]);
     } catch (e) {
-      console.error(e);
+      if (e.message === 'cant-recognize-age') {
+        await this.speech.speak(`Hmm... I couldn't recognize your age.`);
+      } else {
+        console.error(e);
+        await this.speech.speak(`Ohhh, I can't see your face.`);
+      }
       this.age = 25;
       this.gender = 'male';
-      await this.speech.speak(`Ohhh, I can't see your face.`);
       await this.speech.speak(`Ok, we'll handle it together. Provide your age.`);
     }
     this.isRecognizing = false;
