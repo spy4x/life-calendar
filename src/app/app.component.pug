@@ -5,17 +5,18 @@ ng-container('*ngIf'="user$ | async as user")
 
     lc-view-switcher('[view]'="view", '(changed)'="setView($event)")
 
-    p YearOfBirth: {{yearOfBirth}}
-    p Years: {{age}}
+    div(*ngIf="user$ | async as user")
+    p YearOfBirth: {{user.yearOfBirth}}
+    p Years: {{user.age}}
     p Country: {{user.country}}
-    p Prediction: {{lifeExpectancy}}
-    p YearOfDeath: {{yearOfDeath}}
+    p Prediction: {{user.lifeExpectancy}}
+    p YearOfDeath: {{user.yearOfDeath}}
 
-    lc-calendar('[yearOfBirth]'="yearOfBirth",
-                '[lifeExpectancy]'="lifeExpectancy",
-                '[yearOfDeath]'="yearOfDeath",
-                '[age]'="age",
-                '[percentageLivedSoFar]'="percentageLivedSoFar",
+    lc-calendar('[yearOfBirth]'="user.yearOfBirth",
+                '[lifeExpectancy]'="user.lifeExpectancy",
+                '[yearOfDeath]'="user.yearOfDeath",
+                '[age]'="user.age",
+                '[percentageLivedSoFar]'="user.percentageLivedSoFar",
                 '[today]'="today",
                 '[view]'="view")
     button.button('(click)'="clearStorage()") RESET

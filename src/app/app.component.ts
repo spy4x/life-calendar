@@ -15,13 +15,6 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent implements OnInit {
   today = new Date();
-  yearOfBirth = 1990;
-  lifeExpectancy = 75;
-  yearOfDeath = this.yearOfBirth + this.lifeExpectancy;
-  age = this.today.getFullYear() - this.yearOfBirth;
-  gender: string = null;
-  country: string = null;
-  percentageLivedSoFar = ((this.age / this.lifeExpectancy) * 100).toFixed(2);
   view: ViewType = 'radialBar';
   user$ = this.userData.user$;
   isAppOnline$ = this.connectionStatus.isOnline();

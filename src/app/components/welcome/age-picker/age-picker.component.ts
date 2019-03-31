@@ -61,12 +61,22 @@ export class WelcomeAgePickerComponent implements OnInit {
   async finish() {
     this.isFinishButtonClicked = true;
     await this.speech.speak(`Awesome. Let's see what that means...`);
-    const {age, gender, country} = this;
+    const { age, gender, country } = this;
     const lifeExpectancy = await this.ageOfDeathService.get(country, gender);
     const yearOfBirth = new Date().getFullYear() - age;
     const yearOfDeath = yearOfBirth + lifeExpectancy;
     const yearsLeft = lifeExpectancy - age;
-    this.userData.patch({ age, gender, country, lifeExpectancy: lifeExpectancy, yearOfBirth, yearOfDeath, yearsLeft });
+    const percentageLivedSoFar: number = parseFloat(((age / lifeExpectancy) * 100).toFixed(2));
+    this.userData.patch({
+      age,
+      gender,
+      country,
+      lifeExpectancy,
+      yearOfBirth,
+      yearOfDeath,
+      yearsLeft,
+      percentageLivedSoFar,
+    });
     this.done.emit();
   }
 }
