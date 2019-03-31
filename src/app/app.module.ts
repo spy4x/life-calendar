@@ -39,7 +39,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     FormsModule,
         AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService, ConnectionStatusService, FirebaseService],
