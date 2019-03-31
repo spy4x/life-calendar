@@ -65,6 +65,7 @@ export class AppComponent implements OnInit {
   }
 
   async showUserHisLife(): Promise<void> {
+    // return
     this.isShowingLife = true;
     const { age, gender, country, yearOfDeath, yearOfBirth, lifeExpectancy, yearsLeft } = this.user$.value;
     const bornMessage = `So you were born in ${country} in ${yearOfBirth}.`;
