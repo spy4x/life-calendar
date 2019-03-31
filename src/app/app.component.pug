@@ -33,12 +33,13 @@ ng-container('*ngIf'="user$ | async as user")
             | Show timeline 🔥
 
       lc-calendar('*ngIf'="timelineActive",
-                  '[yearOfBirth]'="user.yearOfBirth",
-                  '[lifeExpectancy]'="user.lifeExpectancy",
-                  '[yearOfDeath]'="user.yearOfDeath",
-                  '[age]'="user.age",
-                  '[percentageLivedSoFar]'="user.percentageLivedSoFar",
-                  '[today]'="today")
+      '[yearOfBirth]'="user.yearOfBirth",
+      '[lifeExpectancy]'="user.lifeExpectancy",
+      '[yearOfDeath]'="user.yearOfDeath",
+      '[age]'="user.age",
+      '[percentageLivedSoFar]'="user.percentageLivedSoFar",
+      '[today]'="today",
+      '[activeLifeGap]'="user.activeLifeGap")
 
       .system-panel.system-panel-bottom.slide-up-animation('*ngIf'="timelineActive")
         .buttons

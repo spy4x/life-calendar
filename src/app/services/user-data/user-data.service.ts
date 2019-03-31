@@ -14,6 +14,7 @@ const defaultUser: User = {
   yearsLeft: 0,
   gender: 'male',
   percentageLivedSoFar: 0,
+  activeLifeGap: 0
 };
 
 @Injectable()
