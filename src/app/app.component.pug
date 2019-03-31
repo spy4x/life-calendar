@@ -2,24 +2,35 @@ ng-container('*ngIf'="user$ | async as user")
   lc-welcome('*ngIf'="user.isNew; else mainApp", '(done)'="markUserAsNotNew()")
 
   ng-template(#mainApp)
+    //  p YearOfBirth: {{user.yearOfBirth}}
+    //  p Years: {{user.age}}
+    //  p Country: {{user.country}}
+    //  p Prediction: {{user.lifeExpectancy}}
+    //  p YearOfDeath: {{user.yearOfDeath}}
+    //
+    //  lc-calendar('[yearOfBirth]'="user.yearOfBirth",
+    //  '[lifeExpectancy]'="user.lifeExpectancy",
+    //  '[yearOfDeath]'="user.yearOfDeath",
+    //  '[age]'="user.age",
+    //  '[percentageLivedSoFar]'="user.percentageLivedSoFar",
+    //  '[today]'="today",
+    //  '[view]'="view")
 
-    lc-view-switcher('[view]'="view", '(changed)'="setView($event)")
 
-    div(*ngIf="user$ | async as user")
-    p YearOfBirth: {{user.yearOfBirth}}
-    p Years: {{user.age}}
-    p Country: {{user.country}}
-    p Prediction: {{user.lifeExpectancy}}
-    p YearOfDeath: {{user.yearOfDeath}}
+    section.hero.is-dark.is-fullheight
+      .hero-body
+        .container.has-text-centered
+          button.button.is-large.is-primary('*ngIf'="!isShowingLife", '(click)'="showUserHisLife()")
+            | Show me my life
+          .life-overview('*ngIf'="isShowingLife")
+            p.has-text-centered.slide-down-animation.m-b-1('*ngIf'="showLifeExpectancy")
+              | Life expectancy is {{user.lifeExpectancy}} years
+            .progress-bar-stack
+              .progress-bar('*ngFor'="let ls of lifeStages", '[ngClass]'="ls.cssClass", '[style.width]'="ls.width + '%'")
+                p {{ls.text}}
 
-    lc-calendar('[yearOfBirth]'="user.yearOfBirth",
-                '[lifeExpectancy]'="user.lifeExpectancy",
-                '[yearOfDeath]'="user.yearOfDeath",
-                '[age]'="user.age",
-                '[percentageLivedSoFar]'="user.percentageLivedSoFar",
-                '[today]'="today",
-                '[view]'="view")
-    button.button('(click)'="clearStorage()") RESET
+
+          //button.button.is-small('(click)'="clearStorage()") RESET
 
 
 .notification.is-info.system-notification('*ngIf'="isNewVersionAvailable")

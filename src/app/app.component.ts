@@ -7,6 +7,14 @@ import { SwUpdate } from '@angular/service-worker';
 import { first } from 'rxjs/operators';
 import { concat, interval } from 'rxjs';
 import { environment } from '../environments/environment';
+import { sleep } from './services/sleep.helper';
+
+interface LifeStage {
+  slug: 'lived' | 'activityLeft' | 'untilDeath';
+  width: number;
+  text: string;
+  cssClass: string;
+}
 
 @Component({
   selector: 'lc-root',
@@ -14,11 +22,13 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
-  today = new Date();
   view: ViewType = 'radialBar';
   user$ = this.userData.user$;
   // isAppOnline$ = this.connectionStatus.isOnline();
   isNewVersionAvailable = false;
+  lifeStages: LifeStage[] = [];
+  showLifeExpectancy = false;
+  isShowingLife = false;
 
   constructor(private userData: UserDataService,
               private speech: SpeechService,
@@ -47,12 +57,50 @@ export class AppComponent implements OnInit {
   async markUserAsNotNew(): Promise<void> {
     this.userData.patch({ isNew: false });
     // TODO: May be show some hints of how to use UI
+    this.showUserHisLife();
+  }
 
-    const { gender, country, yearOfDeath, lifeExpectancy, yearsLeft } = this.user$.value;
-    await this.speech.speak(`So you are living in ${country} and you are ${gender}.`);
-    await this.speech.speak(`Because of that your life expectancy is ${lifeExpectancy} years.`);
-    await this.speech.speak(`Which means that you should be aware of year ${yearOfDeath}.`);
-    await this.speech.speak(`And by the way - Do you know that you have about ${yearsLeft} years left?`);
+  async showUserHisLife(): Promise<void> {
+    this.isShowingLife = true;
+    const { age, gender, country, yearOfDeath, yearOfBirth, lifeExpectancy, yearsLeft } = this.user$.value;
+    const activeLifeYearsLeft = 45 - age;
+
+    this.lifeStages.push({
+      slug: 'lived',
+      width: +(100 * age / lifeExpectancy).toFixed(0),
+      text: `👶 in ${country} in ${yearOfBirth}`,
+      cssClass: 'has-background-success',
+    });
+    const bornMessage = `So you were born in ${country} in ${yearOfBirth}.`;
+    await Promise.all([this.speech.speak(bornMessage), sleep(4000)]);
+
+    this.showLifeExpectancy = true;
+    const lifeExpectancyMessage = `In your country life expectancy for ${gender} is ${lifeExpectancy} years.` +
+      ` Which is ${this.getLifeExpectancyMark(lifeExpectancy)}.`;
+    await Promise.all([this.speech.speak(lifeExpectancyMessage), sleep(4000)]);
+
+    this.lifeStages.push({
+      slug: 'untilDeath',
+      width: 100 - this.lifeStages.find(ls => ls.slug === 'lived').width,
+      text: `You have ${yearsLeft} years`,
+      cssClass: 'has-background-info',
+    });
+    await Promise.all([this.speech.speak(`Do you know that about ${yearsLeft} years left?`), sleep(4000)]);
+    await sleep(500);
+
+
+    this.lifeStages.splice(1, 0, {
+      slug: 'activityLeft',
+      width: +(100 * activeLifeYearsLeft / lifeExpectancy).toFixed(0),
+      text: `${activeLifeYearsLeft} active years`,
+      cssClass: 'has-background-warning',
+    });
+    const otherStagesWidthSum = this.lifeStages.filter(ls => ls.slug !== 'untilDeath').reduce((aggr, item) => aggr + item.width, 0);
+    this.lifeStages.find(ls => ls.slug === 'untilDeath').width = 100 - otherStagesWidthSum;
+    await Promise.all([this.speech.speak(`But imagine that during next ${activeLifeYearsLeft} years you will be able to actively affect your life.`), sleep(4000)]);
+    await this.speech.speak(`After that you will be doing whatever you could reach by that moment.`);
+    await this.speech.speak(`If you want to do something big, like your desired startup - move fast!`);
+    await this.speech.speak(`We wish you find enough energy inside yourself to do it! Good luck!`);
   }
 
   runTimerThatChecksForUpdate(): void {
@@ -78,5 +126,24 @@ export class AppComponent implements OnInit {
 
   updateApp(): void {
     this.swUpdate.activateUpdate().then(() => document.location.reload());
+  }
+
+  getLifeExpectancyMark(lifeExpectancy: number): string {
+    if (lifeExpectancy >= 85) {
+      return 'very impressive';
+    }
+    if (lifeExpectancy >= 80) {
+      return 'pretty high';
+    }
+    if (lifeExpectancy >= 75) {
+      return 'not bad';
+    }
+    if (lifeExpectancy >= 70) {
+      return 'above average';
+    }
+    if (lifeExpectancy >= 65) {
+      return 'average';
+    }
+    return 'below average';
   }
 }
