@@ -46,3 +46,7 @@ ng-container('*ngIf'="user$ | async as user")
   p New version is available.
   button.button.is-primary.is-right.m-t-1('(click)'="updateApp()") Update now
 
+.notification.is-warning.system-notification('*ngIf'="!(isAppOnline$ | async) && shouldShowOfflineMessage")
+  button.delete('(click)'="shouldShowOfflineMessage = false")
+  p You are offline
+

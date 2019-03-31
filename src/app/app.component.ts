@@ -24,7 +24,8 @@ interface LifeStage {
 export class AppComponent implements OnInit {
   view: ViewType = 'radialBar';
   user$ = this.userData.user$;
-  // isAppOnline$ = this.connectionStatus.isOnline();
+  isAppOnline$ = this.connectionStatus.isOnline();
+  shouldShowOfflineMessage = true;
   isNewVersionAvailable = false;
   lifeStages: LifeStage[] = [];
   showLifeExpectancy = false;
