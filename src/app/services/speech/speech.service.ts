@@ -35,7 +35,7 @@ export class SpeechService {
         utterance.onend = () => resolve();
         utterance.onerror = error => reject(error);
         utterance.pitch = 1;
-        utterance.rate = 1;
+        utterance.rate = 1.05;
         utterance.voice = this.getVoice();
         synth.speak(utterance);
       } catch (error) {

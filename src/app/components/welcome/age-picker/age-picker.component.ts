@@ -68,7 +68,7 @@ export class WelcomeAgePickerComponent implements OnInit {
     const yearsLeft = lifeExpectancy - age;
     const percentageLivedSoFar: number = parseFloat(((age / lifeExpectancy) * 100).toFixed(2));
     this.userData.patch({
-      age,
+      age: +age,
       gender,
       country,
       lifeExpectancy,

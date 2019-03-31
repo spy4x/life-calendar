@@ -102,8 +102,12 @@ export class CameraComponent implements AfterViewInit, OnDestroy {
           this.canvas.nativeElement.setAttribute('width', this.width);
           this.canvas.nativeElement.setAttribute('height', this.height);
           this.isStreaming = true;
-          interval(1000).pipe(takeUntil(timer(6100))).subscribe(index => {
-            this.timerSecondsLeft = 5 - index;
+          interval(1000).pipe(takeUntil(timer(4100))).subscribe(index => {
+            if (this.isPhotoReady) {
+              this.timerSecondsLeft = 0;
+              return;
+            }
+            this.timerSecondsLeft = 3 - index;
             if (!this.timerSecondsLeft) {
               this.takePicture();
             }

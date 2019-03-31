@@ -2,7 +2,7 @@ section.hero.is-dark.is-fullheight('*ngIf'="!isStreaming")
   .hero-body
     .container.has-text-centered
       h1.title('*ngIf'="isSupported") Let me look at your face to understand your age and gender
-      h1.title('*ngIf'="!isSupported") Video steam is not supported =/
+      h1.title('*ngIf'="!isSupported") Video stream is not supported =/
 
 div.bottom-panel('*ngIf'="!isPhotoReady && isStreaming")
   button.button.is-primary.is-large('(click)'="takePicture()") Snap {{timerSecondsLeft ?'in '+timerSecondsLeft :''}}

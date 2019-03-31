@@ -5,13 +5,7 @@ html
   font-size: 24px
   @media (max-width: 450px)
     font-size: 16px
-//body
-//  background-image: url("assets/tlen.jpeg")
-//  background-repeat: no-repeat
-//  background-size: cover
-//  background-position: center center
-//.is-dark
-//  opacity: .9 !important
+
 .fixed-width
   width: 250px
 .m-t-1
@@ -22,3 +16,34 @@ html
   top: 1rem
   left: 1rem
 
+
+$progress-bar-stack-height: 50px
+.progress-bar-stack
+  background-color: #ccc
+  width: 100%
+  height: $progress-bar-stack-height
+
+  .progress-bar
+    float: left
+    height: 100%
+    @extend .slide-down-animation
+    > p
+      line-height: $progress-bar-stack-height
+    &.orange
+      background-color: orange
+    &.blue
+      background-color: blue
+    &.yellow
+      background-color: yellow
+
+.slide-down-animation
+  animation: slide-down 1.5s ease
+
+@keyframes slide-down
+  0%
+    opacity: 0
+    transform: translateY(-$progress-bar-stack-height)
+
+  100%
+    opacity: 1
+    transform: translateY(0)
