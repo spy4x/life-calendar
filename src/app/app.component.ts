@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   today = new Date();
   view: ViewType = 'radialBar';
   user$ = this.userData.user$;
-  isAppOnline$ = this.connectionStatus.isOnline();
+  // isAppOnline$ = this.connectionStatus.isOnline();
   isNewVersionAvailable = false;
 
   constructor(private userData: UserDataService,
@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
               private appRef: ApplicationRef) {
   }
 
-  async ngOnInit(): void {
-    await this.runTimerThatChecksForUpdate();
+  ngOnInit(): void {
+    this.runTimerThatChecksForUpdate();
     this.swUpdate.available.subscribe(() => {
       this.isNewVersionAvailable = true;
     });
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
     await this.speech.speak(`And by the way - Do you know that you have about ${yearsLeft} years left?`);
   }
 
-  async runTimerThatChecksForUpdate(): void {
+  runTimerThatChecksForUpdate(): void {
     const appIsStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
     const every30Sec$ = interval(30000); // every 30 sec
     const every30SecAfterAppIsStable$ = concat(appIsStable$, every30Sec$);
@@ -72,7 +72,8 @@ export class AppComponent implements OnInit {
         }
       }
     });
-    await this.swUpdate.checkForUpdate();
+    // noinspection JSIgnoredPromiseFromCall
+    this.swUpdate.checkForUpdate();
   }
 
   updateApp(): void {
