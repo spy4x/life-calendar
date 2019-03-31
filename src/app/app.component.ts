@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
     this.lifeStages.push({
       slug: 'untilDeath',
       width: 100 - this.lifeStages.find(ls => ls.slug === 'lived').width,
-      text: `You have ${yearsLeft} years`,
+      text: `You have ~${yearsLeft} years`,
       cssClass: 'has-background-info',
     });
     await Promise.all([this.speech.speak(`Do you know that about ${yearsLeft} years left?`), sleep(4000)]);
@@ -92,11 +92,13 @@ export class AppComponent implements OnInit {
     this.lifeStages.splice(1, 0, {
       slug: 'activityLeft',
       width: +(100 * activeLifeYearsLeft / lifeExpectancy).toFixed(0),
-      text: `${activeLifeYearsLeft} active years`,
+      text: `~${activeLifeYearsLeft} active years`,
       cssClass: 'has-background-success',
     });
     const otherStagesWidthSum = this.lifeStages.filter(ls => ls.slug !== 'untilDeath').reduce((aggr, item) => aggr + item.width, 0);
-    this.lifeStages.find(ls => ls.slug === 'untilDeath').width = 100 - otherStagesWidthSum;
+    const untilDeath = this.lifeStages.find(ls => ls.slug === 'untilDeath');
+    untilDeath.width = 100 - otherStagesWidthSum;
+    untilDeath.text = `~${yearsLeft - activeLifeYearsLeft} years of retirement`,
     await this.speech.speak(`But imagine that during next ${activeLifeYearsLeft} years you will be able to actively affect your life.`);
     await this.speech.speak(`After that you will be doing whatever you could reach by that moment.`);
     await this.speech.speak(`If you want to do something big, like your desired startup - move fast!`);
