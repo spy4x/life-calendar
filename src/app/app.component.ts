@@ -63,7 +63,17 @@ export class AppComponent implements OnInit {
   async showUserHisLife(): Promise<void> {
     this.isShowingLife = true;
     const { age, gender, country, yearOfDeath, yearOfBirth, lifeExpectancy, yearsLeft } = this.user$.value;
-    const activeLifeYearsLeft = 45 - age;
+    let activeLifeGap = 45;
+    if (age >= 45 && age < 50) {
+      activeLifeGap = 50;
+    }
+    if (age >= 50 && age < 55) {
+      activeLifeGap = 55;
+    }
+    if (age >= 55 && age < 60) {
+      activeLifeGap = 60;
+    }
+    const activeLifeYearsLeft = activeLifeGap - age;
 
     this.lifeStages.push({
       slug: 'lived',
@@ -88,19 +98,20 @@ export class AppComponent implements OnInit {
     await Promise.all([this.speech.speak(`Do you know that about ${yearsLeft} years left?`), sleep(4000)]);
     await sleep(500);
 
-
-    this.lifeStages.splice(1, 0, {
-      slug: 'activityLeft',
-      width: +(100 * activeLifeYearsLeft / lifeExpectancy).toFixed(0),
-      text: `~${activeLifeYearsLeft} active years`,
-      cssClass: 'has-background-success',
-    });
-    const otherStagesWidthSum = this.lifeStages.filter(ls => ls.slug !== 'untilDeath').reduce((aggr, item) => aggr + item.width, 0);
-    const untilDeath = this.lifeStages.find(ls => ls.slug === 'untilDeath');
-    untilDeath.width = 100 - otherStagesWidthSum;
-    untilDeath.text = `~${yearsLeft - activeLifeYearsLeft} years of retirement`,
-    await this.speech.speak(`But imagine that during next ${activeLifeYearsLeft} years you will be able to actively affect your life.`);
-    await this.speech.speak(`After that you will be doing whatever you could reach by that moment.`);
+    if (activeLifeYearsLeft > 0) {
+      this.lifeStages.splice(1, 0, {
+        slug: 'activityLeft',
+        width: +(100 * activeLifeYearsLeft / lifeExpectancy).toFixed(0),
+        text: `~${activeLifeYearsLeft} active years`,
+        cssClass: 'has-background-success',
+      });
+      const otherStagesWidthSum = this.lifeStages.filter(ls => ls.slug !== 'untilDeath').reduce((aggr, item) => aggr + item.width, 0);
+      const untilDeath = this.lifeStages.find(ls => ls.slug === 'untilDeath');
+      untilDeath.width = 100 - otherStagesWidthSum;
+      untilDeath.text = `~${yearsLeft - activeLifeYearsLeft} years of retirement`,
+        await this.speech.speak(`But imagine that during next ${activeLifeYearsLeft} years you will be able to actively affect your life.`);
+      await this.speech.speak(`After that you will be doing whatever you could reach by that moment.`);
+    }
     await this.speech.speak(`If you want to do something big, like your desired startup - move fast!`);
     await this.speech.speak(`We wish you find enough energy inside yourself to do it! Good luck!`);
   }
