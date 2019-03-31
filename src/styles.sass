@@ -21,23 +21,23 @@ html
 
 
 $progress-bar-stack-height: 50px
-.progress-bar-stack
-  background-color: #ccc
-  width: 100%
-  height: $progress-bar-stack-height
-
-  .progress-bar
-    float: left
-    height: 100%
-    @extend .slide-down-animation
-    > p
-      line-height: $progress-bar-stack-height
-    &.orange
-      background-color: orange
-    &.blue
-      background-color: blue
-    &.yellow
-      background-color: yellow
+$progress-bar-stack-height-mobile: 100px
+.life-overview
+  .progress-bar-stack
+    background-color: #ccc
+    width: 100%
+    height: $progress-bar-stack-height
+    .progress-bar
+      float: left
+      height: 100%
+      @extend .slide-down-animation
+      > p
+        line-height: $progress-bar-stack-height
+  @media (max-width: 599px)
+    .progress-bar-stack
+      height: $progress-bar-stack-height-mobile
+      .progress-bar > p
+        line-height: $progress-bar-stack-height
 
 .slide-down-animation
   animation: slide-down 1.5s ease

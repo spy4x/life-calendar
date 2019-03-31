@@ -69,15 +69,15 @@ export class AppComponent implements OnInit {
       slug: 'lived',
       width: +(100 * age / lifeExpectancy).toFixed(0),
       text: `👶 in ${country} in ${yearOfBirth}`,
-      cssClass: 'has-background-success',
+      cssClass: 'has-background-link',
     });
     const bornMessage = `So you were born in ${country} in ${yearOfBirth}.`;
     await Promise.all([this.speech.speak(bornMessage), sleep(4000)]);
 
     this.showLifeExpectancy = true;
-    const lifeExpectancyMessage = `In your country life expectancy for ${gender} is ${lifeExpectancy} years.` +
-      ` Which is ${this.getLifeExpectancyMark(lifeExpectancy)}.`;
-    await Promise.all([this.speech.speak(lifeExpectancyMessage), sleep(4000)]);
+    await this.speech.speak(`In your country life expectancy for ${gender} is ${lifeExpectancy} years.`);
+    await this.speech.speak(`Which is ${this.getLifeExpectancyMark(lifeExpectancy)}.`);
+    await sleep(1500);
 
     this.lifeStages.push({
       slug: 'untilDeath',
@@ -93,11 +93,11 @@ export class AppComponent implements OnInit {
       slug: 'activityLeft',
       width: +(100 * activeLifeYearsLeft / lifeExpectancy).toFixed(0),
       text: `${activeLifeYearsLeft} active years`,
-      cssClass: 'has-background-warning',
+      cssClass: 'has-background-success',
     });
     const otherStagesWidthSum = this.lifeStages.filter(ls => ls.slug !== 'untilDeath').reduce((aggr, item) => aggr + item.width, 0);
     this.lifeStages.find(ls => ls.slug === 'untilDeath').width = 100 - otherStagesWidthSum;
-    await Promise.all([this.speech.speak(`But imagine that during next ${activeLifeYearsLeft} years you will be able to actively affect your life.`), sleep(4000)]);
+    await this.speech.speak(`But imagine that during next ${activeLifeYearsLeft} years you will be able to actively affect your life.`);
     await this.speech.speak(`After that you will be doing whatever you could reach by that moment.`);
     await this.speech.speak(`If you want to do something big, like your desired startup - move fast!`);
     await this.speech.speak(`We wish you find enough energy inside yourself to do it! Good luck!`);
