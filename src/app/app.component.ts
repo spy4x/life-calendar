@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
   lifeStages: LifeStage[] = [];
   showLifeExpectancy = false;
   isShowingLife = false;
+  lifeShowingFinished = false;
+  timelineActive = false;
 
   constructor(private userData: UserDataService,
               private speech: SpeechService,
@@ -75,6 +77,7 @@ export class AppComponent implements OnInit {
       this.showLifeExpectancy = true;
       await this.speech.speak(`In your country life expectancy for ${gender} is ${lifeExpectancy} years.`);
       await this.speech.speak(`Wow, you exceeded that! Impressive. I wasn't prepared for that! Happy retirement.`);
+      this.lifeShowingFinished = true;
       return;
     }
     let activeLifeGap = 45;
@@ -131,6 +134,7 @@ export class AppComponent implements OnInit {
       await this.speech.speak(`It seems you had a long live! For sure it was tough, but happy life.`);
       await this.speech.speak(`We wish you calm retirement. You deserve it. Good luck!`);
     }
+    this.lifeShowingFinished = true;
   }
 
   runTimerThatChecksForUpdate(): void {
@@ -152,6 +156,12 @@ export class AppComponent implements OnInit {
     });
     // noinspection JSIgnoredPromiseFromCall
     this.swUpdate.checkForUpdate();
+  }
+
+  showTimeline() {
+    if (this.lifeShowingFinished) {
+      this.timelineActive = true;
+    }
   }
 
   updateApp(): void {

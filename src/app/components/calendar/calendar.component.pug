@@ -1,26 +1,27 @@
-.view.view--horizontal('*ngIf'="view === 'horizontal'")
-  .year('*ngFor'="let year of years; let isFirst = first; let isLast = last")
-    .title {{((+year.title)%10===0 || isFirst || isLast) ? year.title : '&nbsp;'}}
-    .month('*ngFor'="let month of year.months" '[class.passed]'="month.passed")
+//.view.view--horizontal('*ngIf'="view === 'horizontal'")
+//  .year('*ngFor'="let year of years; let isFirst = first; let isLast = last")
+//    .title {{((+year.title)%10===0 || isFirst || isLast) ? year.title : '&nbsp;'}}
+//    .month('*ngFor'="let month of year.months" '[class.passed]'="month.passed")
 
 
-table.view.view--vertical('*ngIf'="view === 'vertical'")
-  thead
-    tr
-      th Year
-      th Months
-  tbody
-    tr('*ngFor'="let year of years")
-      td {{year.title}}
-      td
-        .month('*ngFor'="let month of year.months", '[class.passed]'="month.passed")
+//table.view.view--vertical('*ngIf'="view === 'vertical'")
+//  thead
+//    tr
+//      th Year
+//      th Months
+//  tbody
+//    tr('*ngFor'="let year of years")
+//      td {{year.title}}
+//      td
+//        .month('*ngFor'="let month of year.months", '[class.passed]'="month.passed")
 
 
 //.view.view--progressbar('*ngIf'="view === 'progressbar'")
 //  p {{percentageLivedSoFar}}
 //  progress.progress(max="lifeExpectancy", '[value]'="percentageLivedSoFar") {{percentageLivedSoFar}}%
 
-.view.view--timeline('*ngIf'="view === 'timeline'")
+  //('*ngIf'="view === 'timeline'")
+.view.view--timeline
   .timeline.is-centered
     header.timeline-header.is-primary
       span.tag.is-medium.is-primary Born: {{yearOfBirth}}
@@ -36,7 +37,7 @@ table.view.view--vertical('*ngIf'="view === 'vertical'")
     //span.timeline-item
     //  p.timeline-content {{dead}}
     header.timeline-header
-      span.tag.is-warning Now: {{today | date}}
+      span.tag.is-warning Now: {{age}} years
     .timeline-item.is-danger
     .timeline-item('*ngFor'="let dead of getOlderDead()")
       .timeline-marker
@@ -55,5 +56,5 @@ table.view.view--vertical('*ngIf'="view === 'vertical'")
       span.tag.is-medium.is-primary Death: {{yearOfDeath}}
 
 
-.view.view--chart-radial-bar('*ngIf'="view === 'radialBar'")
-  #chartdiv(style='width: 100%; height: 800px')
+//.view.view--chart-radial-bar('*ngIf'="view === 'radialBar'")
+//  #chartdiv(style='width: 100%; height: 800px')
