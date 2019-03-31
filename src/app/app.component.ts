@@ -93,9 +93,9 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    // FOR TESTS
-    this.lifeShowingFinished = true;
-    return;
+    // // FOR TESTS
+    // this.lifeShowingFinished = true;
+    // return;
 
     const livedWidth = +(100 * age / lifeExpectancy).toFixed(0);
     this.lifeStages.push({
