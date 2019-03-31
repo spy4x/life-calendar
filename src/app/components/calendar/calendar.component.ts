@@ -3,7 +3,7 @@ import { ViewType } from '../../types/view.type';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import { getDiedByYears } from '../../../data/died-young';
+import { geAchievementsByYears } from '../../../data/achievements';
 
 interface Year {
   title: string;
@@ -62,11 +62,11 @@ export class CalendarComponent implements OnChanges {
   }
 
   getYoungerDead() {
-    return getDiedByYears().filter(dead => dead.age < this.age);
+    return geAchievementsByYears().filter(dead => dead.age < this.age);
   }
 
   getOlderDead() {
-    return getDiedByYears().filter(dead => dead.age > this.age);
+    return geAchievementsByYears().filter(dead => dead.age > this.age);
   }
 
   // noinspection JSMethodCanBeStatic

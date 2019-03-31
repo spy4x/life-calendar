@@ -31,7 +31,7 @@
     .timeline-item('*ngFor'="let dead of getYoungerDead()")
       .timeline-marker
       .timeline-content
-        p.heading {{dead.name}}, {{dead.age}}
+        p.heading {{dead.age}}
         p.timeline--desc {{dead.desc}}
 
     //span.timeline-item
@@ -42,7 +42,7 @@
     .timeline-item('*ngFor'="let dead of getOlderDead()")
       .timeline-marker
       .timeline-content
-        p.heading {{dead.name}}, {{dead.age}}
+        p.heading  {{dead.age}}
         p.timeline--desc {{dead.desc}}
     header.timeline-header
       span.tag.is-danger {{getAge50Year()}} - You're almost done with your life

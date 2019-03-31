@@ -22,7 +22,7 @@ interface LifeStage {
   styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
-  view: ViewType = 'radialBar';
+  view: ViewType = 'timeline';
   user$ = this.userData.user$;
   isAppOnline$ = this.connectionStatus.isOnline();
   shouldShowOfflineMessage = true;
@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   isShowingLife = false;
   lifeShowingFinished = false;
   timelineActive = false;
+  today = new Date();
 
   constructor(private userData: UserDataService,
               private speech: SpeechService,
