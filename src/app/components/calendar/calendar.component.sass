@@ -11,6 +11,7 @@ lc-calendar
     &.view--horizontal
       display: flex
       flex-direction: row
+      overflow-x: auto
       .year
         display: flex
         flex-direction: column
@@ -29,6 +30,10 @@ lc-calendar
 
     &.view--timeline
       padding-left: 100px
+
+  .year
+    .title
+      word-break: keep-all
 
 
 
