@@ -43,7 +43,6 @@ export class CountryService {
 
       response = await this.http.get('https://ipapi.co/json/').toPromise();
       if (response && response.country_name) {
-        console.log(2);
         return this.country = response.country_name;
       }
       return this.country = null;
