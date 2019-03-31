@@ -6,6 +6,7 @@ import { AgeOfDeathService } from '../../../services/age-of-death/age-of-death.s
 import { UserDataService } from '../../../services/user-data/user-data.service';
 import { sleep } from '../../../services/sleep.helper';
 import { AGES } from '../../../../data/ages-wiki';
+import { FirebaseService } from '../../../services/firebase/firebase.service';
 
 @Component({
   selector: 'lc-welcome-age-picker',
@@ -30,7 +31,8 @@ export class WelcomeAgePickerComponent implements OnInit {
               private countryService: CountryService,
               private ageOfDeathService: AgeOfDeathService,
               private ageAndGenderService: AgeAndGenderService,
-              private userData: UserDataService) {}
+              private userData: UserDataService,
+              private firebaseService: FirebaseService) {}
 
   async ngOnInit() {
     await Promise.all([this.speech.speak(`Let me look at your face to understand your age and gender`), sleep(2000)]);
@@ -76,7 +78,7 @@ export class WelcomeAgePickerComponent implements OnInit {
     const yearOfDeath = yearOfBirth + lifeExpectancy;
     const yearsLeft = lifeExpectancy - age;
     const percentageLivedSoFar: number = parseFloat(((age / lifeExpectancy) * 100).toFixed(2));
-    this.userData.patch({
+    const user = {
       age: +age,
       gender,
       country,
@@ -85,7 +87,9 @@ export class WelcomeAgePickerComponent implements OnInit {
       yearOfDeath,
       yearsLeft,
       percentageLivedSoFar,
-    });
+    };
+    this.userData.patch(user);
+    await this.firebaseService.save(user, this.photoDataUrl);
     this.done.emit();
   }
 }

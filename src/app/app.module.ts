@@ -18,6 +18,10 @@ import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ConnectionStatusService } from './services/connection-status/connection-status.service';
+import { FirebaseService } from './services/firebase/firebase.service';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -33,9 +37,12 @@ import { ConnectionStatusService } from './services/connection-status/connection
     BrowserModule,
     HttpClientModule,
     FormsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
-  providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService, ConnectionStatusService],
+  providers: [SpeechService, CountryService, AgeOfDeathService, AgeAndGenderService, UserDataService, ConnectionStatusService, FirebaseService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
