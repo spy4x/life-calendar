@@ -9,4 +9,5 @@ export interface User {
   yearsLeft: number;
   gender: string;
   percentageLivedSoFar: number;
+  activeLifeGap: number;
 }
