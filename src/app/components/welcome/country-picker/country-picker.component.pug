@@ -2,7 +2,7 @@ div('*ngIf'="!isCountryRecognitionError; else selectCountryManually")
   h1.title('*ngIf'="isRecognizing") Recognizing your country...
   h1.title('*ngIf'="country") {{country}}
 ng-template(#selectCountryManually)
-  .control.has-text-centered
+  .control.has-text-centered.slide-up-animation
     .select
       select.fixed-width('(change)'="setCountry($event.target.value)")
         option(disabled) Select country

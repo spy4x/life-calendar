@@ -20,6 +20,31 @@ html
   left: 1rem
 
 
+.system-button
+  position: fixed
+  z-index: 200
+  &.system-button-bottom-left
+    left: 0.5rem
+    bottom: 0.5rem
+  &.system-button-bottom-right
+    right: 0.5rem
+    bottom: 0.5rem
+  &.system-button-top-left
+    left: 0.5rem
+    top: 0.5rem
+  &.system-button-top-right
+    right: 0.5rem
+    top: 0.5rem
+
+.system-panel
+  position: fixed
+  z-index: 150
+  width: 100vw
+  padding: 0.5rem
+  &.system-panel-bottom
+    bottom: 0
+
+
 $progress-bar-stack-height: 50px
 $progress-bar-stack-height-mobile: 100px
 .life-overview
@@ -46,6 +71,18 @@ $progress-bar-stack-height-mobile: 100px
   0%
     opacity: 0
     transform: translateY(-$progress-bar-stack-height)
+
+  100%
+    opacity: 1
+    transform: translateY(0)
+
+.slide-up-animation
+  animation: slide-up 1.5s ease
+
+@keyframes slide-up
+  0%
+    opacity: 0
+    transform: translateY($progress-bar-stack-height)
 
   100%
     opacity: 1

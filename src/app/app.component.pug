@@ -21,16 +21,16 @@ ng-container('*ngIf'="user$ | async as user")
       .hero-body('*ngIf'="!timelineActive")
         .container.has-text-centered
           button.button.is-large.is-primary('*ngIf'="!isShowingLife", '(click)'="showUserHisLife()")
-            | Show me my life 🏆
+            | Show me my life ❤️
           .life-overview('*ngIf'="isShowingLife")
             p.has-text-centered.slide-down-animation.m-b-1('*ngIf'="showLifeExpectancy")
               | Life expectancy is {{user.lifeExpectancy}} years
             .progress-bar-stack
               .progress-bar('*ngFor'="let ls of lifeStages", '[ngClass]'="ls.cssClass", '[style.width]'="ls.width + '%'")
                 p {{ls.text}}
-          button.button.btn-timeline.is-success.m-t-1('*ngIf'="lifeShowingFinished && !timelineActive",
+          button.button.btn-timeline.is-success.m-t-1.slide-up-animation('*ngIf'="lifeShowingFinished && !timelineActive",
                                                 '(click)'="showTimeline()")
-            | Show life timing 🔥
+            | Show timeline 🔥
 
       lc-calendar('*ngIf'="timelineActive",
                   '[yearOfBirth]'="user.yearOfBirth",
@@ -40,21 +40,17 @@ ng-container('*ngIf'="user$ | async as user")
                   '[percentageLivedSoFar]'="user.percentageLivedSoFar",
                   '[today]'="today")
 
-      button.button.is-dark.system-button.system-button-left(
-                                                      '(click)'="clearStorage()",
-                                                      title="Restart")
-        svg.icon(xmlns='http://www.w3.org/2000/svg', height='512', viewBox='0 0 1026 1024', version='1.1')
-          path(d='M1026.241164 439.007152H660.620634l145.297599-145.370723a365.62053 365.62053 0 1 0 57.987416 320.137336l131.623391 65.811696a511.868742 511.868742 0 1 1-85.920825-489.931511L1026.241164 73.386622v365.62053z', fill='#0078D7')
+      .system-panel.system-panel-bottom.slide-up-animation('*ngIf'="timelineActive")
+        .buttons
+          button.button.is-warning.is-left('(click)'="clearStorage()", title="Restart") Restart survey 🧨
+          a.button.is-success.is-right(href="https://www.angularattack.com/entries/77-asap/vote" target="_blank")
+            | Vote for me 🎖
 
-      .container.has-text-centered
-        lc-vote-component
-
-
-.notification.is-info.system-notification('*ngIf'="isNewVersionAvailable")
+.notification.is-info.system-notification.slide-down-animation('*ngIf'="isNewVersionAvailable")
   button.delete('(click)'="isNewVersionAvailable = false")
   p New version is available.
   button.button.is-primary.is-right.m-t-1('(click)'="updateApp()") Update now
 
-.notification.is-warning.system-notification('*ngIf'="!(isAppOnline$ | async) && shouldShowOfflineMessage")
+.notification.is-warning.system-notification.slide-down-animation('*ngIf'="!(isAppOnline$ | async) && shouldShowOfflineMessage")
   button.delete('(click)'="shouldShowOfflineMessage = false")
   p You are offline
