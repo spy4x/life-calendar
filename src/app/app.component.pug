@@ -8,15 +8,14 @@ ng-container('*ngIf'="user$ | async as user")
     p YearOfBirth: {{yearOfBirth}}
     p Years: {{age}}
     p Country: {{user.country}}
-    p Prediction: {{yearsToLife}}
+    p Prediction: {{lifeExpectancy}}
     p YearOfDeath: {{yearOfDeath}}
 
     lc-calendar('[yearOfBirth]'="yearOfBirth",
-                '[yearsToLife]'="yearsToLife",
+                '[lifeExpectancy]'="lifeExpectancy",
                 '[yearOfDeath]'="yearOfDeath",
                 '[age]'="age",
                 '[percentageLivedSoFar]'="percentageLivedSoFar",
                 '[today]'="today",
                 '[view]'="view")
-
-    lc-camera-access('(photoDone)'="markUserAsNotNew($event)")
+    button.button('(click)'="clearStorage()") RESET

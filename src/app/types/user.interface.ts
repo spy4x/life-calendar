@@ -1,9 +1,11 @@
 export interface User {
   isNew: boolean;
+  shouldPlayVoice: boolean;
   country: string;
   yearOfBirth: number;
-  yearsToLife: number;
+  lifeExpectancy: number;
+  yearOfDeath: number;
   age: number;
-  ageOfDeath: number;
+  yearsLeft: number;
   gender: string;
 }

@@ -1,1 +1,29 @@
-lc-camera-access('(photoDone)'="done.emit($event)")
+div('*ngIf'="!photoDataUrl && !isRecognized")
+  h1.title
+  lc-welcome-camera('(done)'="usePhoto($event)")
+h1.title('*ngIf'="isRecognizing") 👴🏻 Recognizing your age and gender 👶
+div('*ngIf'="isRecognized")
+  p.title Am I right?
+  .columns.is-multiline
+    .column
+      .control.has-text-centered
+        .select
+          select.fixed-width('[(ngModel)]'="age")
+            option(disabled) Age
+            option('*ngFor'="let year of years") {{year}}
+    .column
+      .control.has-text-centered
+        .select
+          select.fixed-width('[(ngModel)]'="gender")
+            option(disabled) Gender
+            option(value='male') male
+            option(value='female') female
+    .column
+      .control.has-text-centered
+        .select
+          select.fixed-width('[(ngModel)]'="country")
+            option(disabled) Country
+            option('*ngFor'="let country of countries") {{country}}
+    .column.has-text-centered
+      button.button.is-primary.fixed-width('(click)'="finish()") Continue
+

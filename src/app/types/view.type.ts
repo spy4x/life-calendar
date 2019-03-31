@@ -1,1 +1,1 @@
-export type ViewType = 'vertical' | 'horizontal' | 'progressbar';
+export type ViewType = 'vertical' | 'horizontal' | 'progressbar' | 'timeline' | 'radialBar';
