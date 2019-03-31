@@ -68,6 +68,7 @@ export class AppComponent implements OnInit {
     this.isShowingLife = true;
     const { age, gender, country, yearOfDeath, yearOfBirth, lifeExpectancy, yearsLeft } = this.user$.value;
     const bornMessage = `So you were born in ${country} in ${yearOfBirth}.`;
+    let activeLifeYearsLeft = 0;
     if (age >= lifeExpectancy) {
       this.lifeStages.push({
         slug: 'lived',
@@ -79,20 +80,17 @@ export class AppComponent implements OnInit {
       this.showLifeExpectancy = true;
       await this.speech.speak(`In your country life expectancy for ${gender} is ${lifeExpectancy} years.`);
       await this.speech.speak(`Wow, you exceeded that! Impressive. I wasn't prepared for that! Happy retirement.`);
-      // this.lifeShowingFinished = true;
-      // return;
-    }
-    let activeLifeGap = 45;
-    if (age >= 45 && age < 50) {
-      activeLifeGap = 50;
-    } else if (age >= 50 && age < 55) {
-      activeLifeGap = 55;
-    } else if (age >= 55) {
-      activeLifeGap = 60;
-    }
-    const activeLifeYearsLeft = activeLifeGap - age;
-    this.userData.patch({ activeLifeGap });
-    if (age >= lifeExpectancy) {
+
+      let activeLifeGap = 45;
+      if (age >= 45 && age < 50) {
+        activeLifeGap = 50;
+      } else if (age >= 50 && age < 55) {
+        activeLifeGap = 55;
+      } else if (age >= 55) {
+        activeLifeGap = 60;
+      }
+      activeLifeYearsLeft = activeLifeGap - age;
+      this.userData.patch({ activeLifeGap });
       this.lifeShowingFinished = true;
       return;
     }
@@ -140,10 +138,10 @@ export class AppComponent implements OnInit {
         `But imagine that during next ${activeLifeYearsLeft} years you will be able to actively affect your life.`);
       await this.speech.speak(`After that you will be doing whatever you could reach by that moment.`);
       await this.speech.speak(`If you want to do something big, like your desired startup - move fast!`);
-      await this.speech.speak(`We wish you find enough energy inside yourself to do it! Good luck!`);
+      await this.speech.speak(`Now check timeline!`);
     } else {
       await this.speech.speak(`It seems you had a long live! For sure it was tough, but happy life.`);
-      await this.speech.speak(`We wish you calm retirement. You deserve it. Good luck!`);
+      await this.speech.speak(`We wish you calm retirement. Now check timeline!`);
     }
     this.lifeShowingFinished = true;
   }

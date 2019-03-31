@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ViewType } from '../../types/view.type';
-// import * as am4core from '@amcharts/amcharts4/core';
-// import * as am4charts from '@calendar.component.pugamcharts/amcharts4/charts';
-// import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { getAchievementsByYears } from '../../../data/achievements';
+import { SpeechService } from '../../services/speech/speech.service';
 
 interface Year {
   title: string;
@@ -17,7 +15,7 @@ interface Year {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class CalendarComponent implements OnChanges {
+export class CalendarComponent implements OnInit, OnChanges {
   @Input() yearOfBirth: number;
   @Input() lifeExpectancy: number;
   @Input() yearOfDeath: number;
@@ -28,6 +26,13 @@ export class CalendarComponent implements OnChanges {
   @Input() activeLifeGap: number;
   years: Year[];
   private achievementsByYears: { age: any; desc: any }[];
+
+  constructor(private speech: SpeechService) {}
+
+  async ngOnInit() {
+    await this.speech.speak(`Here you can see achievements of famous people before and after your age`);
+    await this.speech.speak(`Don't scroll to the bottom. You won't like it there.`);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const thus = this;
@@ -40,29 +45,6 @@ export class CalendarComponent implements OnChanges {
       // }
     }
   }
-
-  private generateYears(): Year[] {
-    this.refreshItems();
-    const years: Year[] = [];
-    for (let year = this.yearOfBirth; year <= this.yearOfDeath; year++) {
-      const yearItem: Year = {
-        title: year + '',
-        months: [],
-      };
-      for (let month = 1; month <= 12; month++) {
-        yearItem.months.push({
-          title: month + '',
-          passed: this.today > new Date(`${year}-${month}-31`),
-        });
-      }
-      years.push(yearItem);
-    }
-    return years;
-  }
-
-  // getAge50Year() {
-  //   return this.yearOfBirth + 50;
-  // }
 
   getItems() {
     const arr = this.achievementsByYears
@@ -91,6 +73,9 @@ export class CalendarComponent implements OnChanges {
     return arr.sort((a, b) => a.age - b.age);
   }
 
+  // getAge50Year() {
+  //   return this.yearOfBirth + 50;
+  // }
 
   getYoungerAge() {
     return this.achievementsByYears.filter(dead => dead.age < this.age);
@@ -102,6 +87,10 @@ export class CalendarComponent implements OnChanges {
 
   getOlderNotEffective() {
     return this.achievementsByYears.filter(dead => dead.age > this.activeLifeGap && dead.age < this.lifeExpectancy);
+  }
+
+  refreshItems() {
+    this.achievementsByYears = getAchievementsByYears();
   }
 
 //   // noinspection JSMethodCanBeStatic
@@ -184,7 +173,26 @@ export class CalendarComponent implements OnChanges {
 //
 //   }
 
-  refreshItems() {
-    this.achievementsByYears = getAchievementsByYears();
+  private generateYears(): Year[] {
+    this.refreshItems();
+    const years: Year[] = [];
+    for (let year = this.yearOfBirth; year <= this.yearOfDeath; year++) {
+      const yearItem: Year = {
+        title: year + '',
+        months: [],
+      };
+      for (let month = 1; month <= 12; month++) {
+        yearItem.months.push({
+          title: month + '',
+          passed: this.today > new Date(`${year}-${month}-31`),
+        });
+      }
+      years.push(yearItem);
+    }
+    return years;
+  }
+
+  getClass(item: { type: string; age: any; desc: any }) {
+   return 'is-primary';
   }
 }

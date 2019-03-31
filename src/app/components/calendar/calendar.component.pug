@@ -26,39 +26,39 @@ button.button.is-success.system-button.system-button-top-left.slide-down-animati
 .view.view--timeline
   .timeline.is-centered
 
-    ng-container('*ngFor'="let dead of getItems()")
-      ng-container('*ngIf'="dead.type==='archive'")
-        .timeline-item
-          .timeline-marker
+    ng-container('*ngFor'="let item of getItems()")
+      ng-container('*ngIf'="item.type==='archive'")
+        .timeline-item('[ngClass]'="getClass(item)")
+          .timeline-marker()
           .timeline-content
-            h2 {{dead.age}}
-            p.timeline--desc {{dead.desc}}
+            h2 {{item.age}}
+            p.timeline--desc {{item.desc}}
 
-      ng-container('*ngIf'="dead.type==='terminator'")
-        ng-container('*ngIf'="dead.age!==0")
-          .timeline-item
+      ng-container('*ngIf'="item.type==='terminator'")
+        ng-container('*ngIf'="item.age!==0")
+          .timeline-item.is-primary
             .timeline-content
-          .timeline-item
+          .timeline-item.is-primary
             .timeline-content
         header.timeline-header
-          span.tag.is-medium.is-danger {{dead.desc}}
-        ng-container('*ngIf'="dead.age===0")
-          .timeline-item
+          span.tag.is-danger {{item.desc}}
+        ng-container('*ngIf'="item.age===0")
+          .timeline-item.is-primary
             .timeline-content
-          .timeline-item
+          .timeline-item.is-primary
             .timeline-content
 
-      ng-container('*ngIf'="dead.type==='event'")
-        .timeline-item
+      ng-container('*ngIf'="item.type==='event'")
+        .timeline-item.is-primary
           .timeline-content
-        .timeline-item
+        .timeline-item.is-primary
           .timeline-content
         header.timeline-header
-          span.tag.is-warning {{dead.desc}}
-        ng-container('*ngIf'="age < lifeExpectancy || dead.age !== age")
-          .timeline-item
+          span.tag.is-warning {{item.desc}}
+        ng-container('*ngIf'="age < lifeExpectancy || item.age !== age")
+          .timeline-item.is-primary
             .timeline-content
-          .timeline-item
+          .timeline-item.is-primary
             .timeline-content
 
 //header.timeline-header.is-primary
