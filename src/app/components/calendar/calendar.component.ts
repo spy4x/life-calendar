@@ -3,7 +3,7 @@ import { ViewType } from '../../types/view.type';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import { getDiedByYears } from '../../../data/died-young';
+import { getAchievementsByYears } from '../../../data/achievements';
 
 interface Year {
   title: string;
@@ -20,12 +20,14 @@ interface Year {
 export class CalendarComponent implements OnChanges {
   @Input() yearOfBirth: number;
   @Input() lifeExpectancy: number;
+  notEffectiveAge = 50;
   @Input() yearOfDeath: number;
   @Input() age: number;
   @Input() percentageLivedSoFar: number;
   @Input() view: ViewType;
   @Input() today: Date;
   years: Year[];
+  private achievementsByYears: { age: any; desc: any }[];
 
   ngOnChanges(changes: SimpleChanges): void {
     const thus = this;
@@ -40,6 +42,7 @@ export class CalendarComponent implements OnChanges {
   }
 
   private generateYears(): Year[] {
+    this.refreshItems();
     const years: Year[] = [];
     for (let year = this.yearOfBirth; year <= this.yearOfDeath; year++) {
       const yearItem: Year = {
@@ -61,12 +64,16 @@ export class CalendarComponent implements OnChanges {
     return this.yearOfBirth + 50;
   }
 
-  getYoungerDead() {
-    return getDiedByYears().filter(dead => dead.age < this.age);
+  getYoungerAge() {
+    return this.achievementsByYears.filter(dead => dead.age < this.age);
   }
 
-  getOlderDead() {
-    return getDiedByYears().filter(dead => dead.age > this.age);
+  getOlderAge() {
+    return this.achievementsByYears.filter(dead => dead.age > this.age && dead.age > this.notEffectiveAge);
+  }
+
+  getOlderNotEffective() {
+    return this.achievementsByYears.filter(dead => dead.age > this.notEffectiveAge && dead.age < this.lifeExpectancy);
   }
 
   // noinspection JSMethodCanBeStatic
@@ -149,4 +156,7 @@ export class CalendarComponent implements OnChanges {
 
   }
 
+  refreshItems() {
+    this.achievementsByYears = getAchievementsByYears();
+  }
 }
